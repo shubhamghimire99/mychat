@@ -19,13 +19,13 @@ public class User {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
-	@NotBlank(message=" Name is required!")
+	@NotBlank(message="First Name is required!")
 	@Size(min= 2,max=20,message= "Minimum 2 and maximul 20 characters are allowed")
 	private String firstname;
-	@NotBlank(message=" Name is required!")
+	@NotBlank(message="Last Name is required!")
 	@Size(min= 2,max=20,message= "Minimum 2 and maximul 20 characters are allowed")
 	private String lastname;
-	@NotBlank(message=" Name is required!")
+	@NotBlank(message="User Name is required!")
 	@Size(min= 2,max=20,message= "Minimum 2 and maximul 20 characters are allowed")
 	private String uname;
 	@Column(unique = true)

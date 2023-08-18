@@ -27,31 +27,47 @@
 					<form novalidate action="" th:action="@{/do_register}" method="post" th:object="${user}">
 						<!--Name field-->
 						<div class="mb-3">
-							<label for="name_field" th:value="${user.firstname}" class="form-label">First Name</label>
-							<input name="firstname" type="text" class="form-control" id="name_field">		
+							<label for="first_name_field" th:value="${user.firstname}" class="form-label">First Name</label>
+							<input name="firstname" type="text" class="form-control" id="first_name_field"
+								   th:classappend="${ #fields.hasErrors('firstname')?'is-invalid':'' }">
+							<div th:each="e: ${#fields.errors('firstname')}" th:text="${e}"
+								  class="invalid-feedback">
+							</div>
 							
 						</div>
 						<div class="mb-3">
-							<label for="name_field" th:value="${user.lastname}" class="form-label">Last Name</label>
-							<input name="lastname" type="text" class="form-control" id="name_field">		
+							<label for="last_name_field" th:value="${user.lastname}" class="form-label">Last Name</label>
+							<input name="lastname" type="text" class="form-control" id="last_name_field"
+								   th:classappend="${ #fields.hasErrors('lastname')?'is-invalid':'' }">
+							<div th:each="e: ${#fields.errors('lastname')}" th:text="${e}"
+								 class="invalid-feedback">
+							</div>
 							
 						</div>
 						<div class="mb-3">
-							<label for="name_field" th:value="${user.uname}" class="form-label">User Name</label>
-							<input name="uname" type="text" class="form-control" id="name_field">		
-							
+							<label for="user_name_field" th:value="${user.uname}" class="form-label">User Name</label>
+							<input name="uname" type="text" class="form-control" id="user_name_field"
+								   th:classappend="${ #fields.hasErrors('uname')?'is-invalid':'' }">
+							<div th:each="e: ${#fields.errors('uname')}" th:text="${e}"
+								 class="invalid-feedback">
+							</div>
+
 						</div>
 						<!--email field-->
 						<div class="mb-3">
 							<label for="email_field" class="form-label">E-mail</label>
 							<input name="email" type="email" th:value="${user.email}" class="form-control"
-								id="email_field" placeholder="Enter Here"required>
+								id="email_field" placeholder="Enter Here"required
+								   th:classappend="${ #fields.hasErrors('email')?'is-invalid':'' }">
+							<div th:each="e: ${#fields.errors('uname')}" th:text="${e}"
+								  class="invalid-feedback">
+							</div>
 						</div>
 						<!--contact field-->
 						<div class="mb-3">
 							<label for="contact_field" class="form-label">Phone Number</label>
 							<input name="contact" type="email" th:value="${user.contact}" class="form-control"
-								id="email_field" placeholder="Enter Here"required>
+								id="contact_field" placeholder="Enter Here"required>
 						</div>
 						<!--password field-->
 						<div class="mb-3">
@@ -59,14 +75,6 @@
 							<input name="password" type="password" th:value="${user.password}" class="form-control"
 								id="password_field" placeholder="Enter Here">
 						</div>
-
-						
-						
-						<!--Terms and condition-->
-			<!--			<div class="mb-3 form-check">
-							<input type="checkbox" name="aggrement" class="form-check-input" id="aggrement" />
-							<label for="aggrement"> Accept terms and conditions</label>
-						</div>-->
 
 						<div class=" btn-container text-center">
 							<button type="submit" class="btn bg-success text-white">
@@ -79,7 +87,6 @@
 						<div class="register-container text-center">
 							<p>Already have an account? <a href="/user/profile" id="signup-link">Login</a></p>	
 						</div>
-					</div>
 				</form>
 				</div>
 			</div>
