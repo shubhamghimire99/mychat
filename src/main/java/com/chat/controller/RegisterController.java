@@ -24,7 +24,6 @@ public class RegisterController {
 	@Autowired
 	private UserRepository userRepository;
     
-    // handler for regeristing user
 	@PostMapping("/register")
 	public String registerUser(@Valid @ModelAttribute("user") User user,BindingResult result1,
 			@RequestParam(value = "aggrement", defaultValue = "false")
