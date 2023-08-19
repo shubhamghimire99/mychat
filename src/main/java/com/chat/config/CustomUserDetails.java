@@ -9,8 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.chat.entities.User;
 
-public class CustomUserDetails implements UserDetails {
-
+public class CustomUserDetails implements UserDetails{
 	private User user;
 	
 	public CustomUserDetails(User user) {
