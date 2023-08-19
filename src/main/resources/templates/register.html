@@ -15,17 +15,9 @@
 			<div class="col-md-8 offset-md-2">
 				<div class="mycard mt-2 text-white">
 
-
-		<!--			<div th:if="${session.message}" th:classappend="${session.message.type}" class="alert" role="alert">
-						<p th:text="${session.message.content}"></p>
-						 <th:block th:text="${session.removeAttribute('message')}"></th:block> 
-
-					</div>-->
-
 					<h1 class="text-center"> Sign Up</h1>
 
-					<form novalidate action="" th:action="@{/do_register}" method="post" th:object="${user}">
-						<!--Name field-->
+					<form novalidate th:action="@{/register}" method="post" th:object="${user}">
 						<div class="mb-3">
 							<label for="first_name_field" th:value="${user.firstname}" class="form-label">First Name</label>
 							<input name="firstname" type="text" class="form-control" id="first_name_field"
@@ -66,7 +58,7 @@
 						<!--contact field-->
 						<div class="mb-3">
 							<label for="contact_field" class="form-label">Phone Number</label>
-							<input name="contact" type="email" th:value="${user.contact}" class="form-control"
+							<input name="contact" type="text" th:value="${user.contact}" class="form-control"
 								id="contact_field" placeholder="Enter Here"required>
 						</div>
 						<!--password field-->
@@ -87,7 +79,7 @@
 						<div class="register-container text-center">
 							<p>Already have an account? <a href="/user/profile" id="signup-link">Login</a></p>	
 						</div>
-				</form>
+					</form>
 				</div>
 			</div>
 		</div>
