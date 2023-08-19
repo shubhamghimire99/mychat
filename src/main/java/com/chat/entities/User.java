@@ -30,6 +30,7 @@ public class User {
 	private String uname;
 	@Column(unique = true)
 	@Pattern(regexp= "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$", message="invalid email")
+	
 	private String email;
 	private String contact;
 	private String password;

@@ -1,16 +1,39 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeLeaf.org" th:replace="base::Layout(~{::section})">
-	<head>
-		<meta charset="UTF-8"/>
-		
-	</head>
-	<body>
-		<section class = "banner d-flex justify-content-center align-items-center">
-			<div class="text-center">
-				<h1 class="font-weight-bold"> this is notification page </h1>
-			</div>
-		</section>
-	</body>
+
+<head>
+	<meta charset="UTF-8" />
+
+</head>
+
+<body>
+	<section class="banner">
+		<div class="text-center">
+			<h1 class="font-weight-bold"> this is notification page </h1>
+		</div>
+		<!-- message sending field and send button -->
+
+		<form th:action="@{/send}" method="post" class="mt-5">
+			<input type="text" name="message" placeholder="Enter your message">
+			<button type="submit" class="btn btn-primary">Send</button>
+		</form>		
+	<style>
+
+		form {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+		input{
+			padding: 10px;
+			border-radius: 5px;
+			border: none;
+			margin: 10px;
+		}
+	</style>
+
+	</section>
+
+</body>
+
 </html>
-
-
