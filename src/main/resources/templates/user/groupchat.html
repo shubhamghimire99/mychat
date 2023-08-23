@@ -2,11 +2,11 @@
 <html lang="en" xmlns:th="http://www.thymeLeaf.org" th:replace="base::Layout(~{::section})">
 	<head>
 		<meta charset="UTF-8"/>
-		
 	</head>
 	<body>
 		<section class = "banner d-flex justify-content-center align-items-center">
-			<div class="container-fluid h-100">
+			<!--Main group chat UI-->
+			<!--<div class="container-fluid h-100">
 				<div class="row justify-content-center h-100">
 					<div class="col-md-4 col-xl-3 chat">
 						<div class="card mb-sm-3 mb-md-0 contacts_card">
@@ -189,8 +189,50 @@
 						</div>
 					</div>
 				</div>
+			</div>-->
+			<noscript>
+			<h2>Oops! It looks like this browser does not support JavaScript</h2>
+			</noscript>
+
+			<div id="username-page">
+				<div class="username-page-container">
+					<h1 class="title">Type your name</h1>
+					<form id="usernameForm" name="usernameForm">
+						<div class="form-group">
+							<input type="text" id="name" placeholder="Nome"
+								   autocomplete="off" class="form-control" />
+						</div>
+						<div class="form-group">
+							<button type="submit" class="accent username-submit">
+								start chatting </button>
+						</div>
+					</form>
+				</div>
 			</div>
+
+			<div id="chat-page" class="hidden">
+				<div class="chat-container">
+					<div class="chat-header">
+						<h2>ChatBox</h2>
+					</div>
+					<div class="connecting">Connect to chat</div>
+					<ul id="messageArea">
+
+					</ul>
+					<form id="messageForm" name="messageForm" nameForm="messageForm">
+						<div class="form-group">
+							<div class="input-group clearfix">
+								<input type="text" id="message" placeholder="Type a message..."
+									   autocomplete="off" class="form-control" />
+								<button type="submit" class="primary">To send</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+
 		</section>
+
 	</body>
 </html>
 
