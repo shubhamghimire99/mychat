@@ -49,6 +49,7 @@ public class UserController {
 		model.addAttribute("user",user);
 		return "/user/chat";
 	}
+
 	@RequestMapping("/groupchat")
 	public String groupchat(Model model, Principal principal) {
 		model.addAttribute("title", "Group Chat");
@@ -57,6 +58,7 @@ public class UserController {
 		model.addAttribute("user",user);
 		return "/user/groupchat";
 	}
+
 	@RequestMapping("/notification")
 	public String notification(Model model, Principal principal) {
 		model.addAttribute("title", "Notification");
@@ -71,4 +73,20 @@ public class UserController {
 		
 		return "user/notification"; // Remove the leading slash
 	}
+
+	@RequestMapping("/cheat")
+    public String chatPage(Model model, Principal principal) {
+        
+        model.addAttribute("title", "Chat");
+		String username = principal.getName();
+		User user = userRepository.getUserByUserName(username);
+		
+		// Assuming your MessageRepository has a method to fetch messages by sender
+		List<Messages> userMessages = messageRepository.findAll();
+		
+		model.addAttribute("user", user);
+		model.addAttribute("userMessages", userMessages); // Pass the messages to the template
+		
+		return "user/notification"; // Remove the leading slash
+    }
 }

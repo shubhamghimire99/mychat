@@ -6,13 +6,13 @@
 </head>
 
 <body>
-	<section class="container mt-5">
+	<section class="container" style="padding-top: 70px;">
 		<div class="text-center">
 			<h1 class="font-weight-bold"> this is notification page </h1>
 		</div>
 		<!-- message sending field and send button -->
 
-		<div class="message">
+		<div class="message" id="chat">
 			<div th:if="${userMessages.empty}" class="mt-5 message-box">
 				<p>No notifications.</p>
 			</div>
@@ -23,32 +23,40 @@
 		</div>
 
 		<form th:action="@{/send}" method="post" class="mt-5">
-			<input type="text" name="message" placeholder="Enter your message">
+			<input type="text" name="message" placeholder="Enter your message" id="message">
 			<button type="submit" class="btn btn-primary">Send</button>
-		</form>		
-	<style>
-		form {
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-		}
-		input{
-			padding: 10px;
-			border-radius: 5px;
-			border: none;
-			margin: 10px;
-		}
-		.message{
-			background-color: bisque;
-			margin-top: 10px;
-			box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
-		}
-		.message-box{
-			background-color: white;
-			margin: 10px;
-			box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
-		}
-	</style>
+		</form>
+		<style>
+			form {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
+
+			input {
+				padding: 10px;
+				border-radius: 5px;
+				border: none;
+				margin: 10px;
+			}
+
+			.message {
+				background-color: bisque;
+				margin-top: 10px;
+				box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+			}
+
+			.message-box {
+				background-color: white;
+				margin: 10px;
+				box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+			}
+		</style>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
+
+		<script th:src="@{/JS/app.js}"></script>
 
 	</section>
 
