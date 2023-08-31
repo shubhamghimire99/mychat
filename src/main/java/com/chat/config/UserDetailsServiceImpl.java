@@ -5,7 +5,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import com.chat.config.CustomUserDetails;
 import com.chat.dao.UserRepository;
 import com.chat.entities.User;
 
