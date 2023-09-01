@@ -13,12 +13,12 @@ socket.onmessage = function(event) {
     console.log("Received message: " + event.data);
 };
 
-// function sendMessage() {
-//     var message = $("#message").val();
-//     var json = JSON.stringify({
-//         "text": message
-//     });
-//     socket.send(json);
-//     $("#message").val("");
-// }
-
+ /*function sendMessage() {
+     var message = $("#message").val();
+     var json = JSON.stringify({
+         "text": message
+     });
+     socket.send(json);
+     $("#message").val("");
+ }
+*/

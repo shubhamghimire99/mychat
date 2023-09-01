@@ -541,6 +541,7 @@ body {
 body,
 html {
   height: 100%;
+  width: 100%;
   margin: 0;
   background: #7F7FD5;
   background: -webkit-linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
@@ -574,6 +575,9 @@ html {
 }
 
 .card-footer {
+    width: 950px;
+    margin-top: 800px;
+    position:fixed;
   border-radius: 0 0 15px 15px !important;
   border-top: 0 !important;
 }
@@ -827,6 +831,7 @@ html {
 
 html,body {
     height: 100%;
+    width: 100%;
     overflow: hidden;
 }
 
@@ -851,13 +856,12 @@ body {
 
 body:before {
     height: 50%;
-    width: 100%;
     position: absolute;
     top: 0;
     left: 0;
-    background: maxresdefault.jpg;
+    /* background: maxresdefault.jpg;
     content: "";
-    z-index: 0;
+    z-index: 0;  */
 }
 
 .clearfix:after {
@@ -871,6 +875,7 @@ body:before {
 }
 
 .form-control {
+   
     width: 100%;
     min-height: 38px;
     font-size: 15px;

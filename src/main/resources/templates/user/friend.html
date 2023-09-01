@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeLeaf.org" th:replace="base::Layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        main {
+          display: flex;
+          flex-direction: column;
+        }
+        form {
+          background-color: aqua;
+          margin: 10px;
+  
+          display: flex;
+          flex-direction: column;
+        }
+      </style>
+       <script
+       src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"
+       integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ=="
+       crossorigin="anonymous"
+       referrerpolicy="no-referrer"
+     ></script>
+</head>
+<body>
+  <section>
+    <h1>friends</h1>
+    <div class="main"></div>
+<!--    
+      <ul class="contacts">
+        <li th:each="otherUser : ${allUsers}">
+            <div class="d-flex bd-highlight">
+                <div class="img_cont">
+                    <img th:src="@{/IMG/profile.jpg}" class="rounded-circle user_img">
+                    <span class="online_icon"></span>
+                </div>
+                <div class="user_info">
+                    <span th:text="${otherUser.firstname + ' ' + otherUser.lastname}"></span>
+                     You can add more information about the user if needed
+                </div>
+            </div>
+        </li>
+    </ul> -->
+    <script th:src="@{/JS/friend.js}"></script>
+ 
+  </section>
+</body>
+</html>

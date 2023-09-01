@@ -1,60 +1,134 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeLeaf.org" th:replace="base::Layout(~{::section})">
+
 <head>
-	<meta charset="UTF-8" />
+    <meta charset="UTF-8" />
 
 </head>
+<html>
 
 <body>
-	<section class="banner d-flex justify-content-center align-items-center">
-		<div class="container-fluid h-100">
-			<div class="row justify-content-center h-100">
-				<div class="col-md-4 col-xl-3 chat">
-					<div class="card mb-sm-3 mb-md-0 contacts_card">
-						<div class="card-header">
-							<div class="input-group">
-								<input type="text" placeholder="Search..." name="" class="form-control search">
-								<div class="input-group-prepend">
-									<span class="input-group-text search_btn"><i class="fas fa-search"></i></span>
 
-	<head>
-		<meta charset="UTF-8"/>
-	</head>
-	<body>
-		<section class = "banner d-flex justify-content-center align-items-center">
-			
-			<noscript>
-			<h2>Oops! It looks like this browser does not support JavaScript</h2>
-			</noscript>
+    <section class="banner d-flex justify-content-center align-items-center">
 
-			<div id="username-page">
-				<div class="username-page-container">
-					<h1 class="title">Type your name</h1>
-					<form id="usernameForm" name="usernameForm">
-						<div class="form-group">
-							<input type="text" id="name" placeholder="Nome"
-								   autocomplete="off" class="form-control" />
-						</div>
-						<div class="form-group">
-							<button type="submit" class="accent username-submit">
-								start chatting </button>
-						</div>
-					</form>
-				</div>
-			</div>
+        <noscript>
+            <h2>Oops! It looks like this browser does not support JavaScript</h2>
+        </noscript>
 
-		</div>
+        <div class="col-md-8 col-xl-6 chat">
+            <div class="card">
+                <div class="card-header msg_head">
+                    <div class="d-flex bd-highlight">
+                        <div class="img_cont">
+                            <img src="../IMG/profile.jpg" class="rounded-circle user_img">
+                            <span class="online_icon"></span>
+                        </div>
+                        <div class="user_info">
+                            <span>Chat with <span th:text="${user.uname}"></span></span>
+                            <p>1767 Messages</p>
+                        </div>
 
+                    </div>
+                    <span id="action_menu_btn"><i class="fas fa-ellipsis-v"></i></span>
+                    <div class="action_menu">
+                        <ul>
+                            <li><i class="fas fa-user-circle"></i> View profile</li>
+                            <li><i class="fas fa-users"></i> Add to close friends</li>
+                            <li><i class="fas fa-plus"></i> Add to group</li>
+                            <li><i class="fas fa-ban"></i> Block</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-body msg_card_body">
+                    <ul id="messageArea"></ul>
+                    <!-- <div class="d-flex justify-content-start mb-4">
+                            <div class="img_cont_msg">
+                                <img src="../IMG/profile.jpg" class="rounded-circle user_img_msg">
+                            </div>
+                            <div class="msg_cotainer">
+                                Hi, how are you samim?
+                                <span class="msg_time">8:40 AM, Today</span>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end mb-4">
+                            <div class="msg_cotainer_send">
+                                Hi Khalid i am good tnx how about you?
+                                <span class="msg_time_send">8:55 AM, Today</span>
+                            </div>
+                            <div class="img_cont_msg">
+                                <img src="../IMG/profile.jpg" class="rounded-circle user_img_msg">
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-start mb-4">
+                            <div class="img_cont_msg">
+                                <img src="../IMG/profile.jpg" class="rounded-circle user_img_msg">
+                            </div>
+                            <div class="msg_cotainer">
+                                I am good too, thank you for your chat template
+                                <span class="msg_time">9:00 AM, Today</span>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end mb-4">
+                            <div class="msg_cotainer_send">
+                                You are welcome
+                                <span class="msg_time_send">9:05 AM, Today</span>
+                            </div>
+                            <div class="img_cont_msg">
+                                <img src="../IMG/profile.jpg" class="rounded-circle user_img_msg">
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-start mb-4">
+                            <div class="img_cont_msg">
+                                <img src="../IMG/profile.jpg" class="rounded-circle user_img_msg">
+                            </div>
+                            <div class="msg_cotainer">
+                                I am looking for your next templates
+                                <span class="msg_time">9:07 AM, Today</span>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end mb-4">
+                            <div class="msg_cotainer_send">
+                                Ok, thank you have a good day
+                                <span class="../IMG/profile.jpg">9:10 AM, Today</span>
+                            </div>
+                            <div class="img_cont_msg">
+                                <img src="../IMG/profile.jpg" class="rounded-circle user_img_msg">
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-start mb-4">
+                            <div class="img_cont_msg">
+                                <img src="../IMG/profile.jpg" class="rounded-circle user_img_msg">
+                            </div>
+                            <div class="msg_cotainer">
+                                Bye, see you
+                                <span class="msg_time">9:12 AM, Today</span>
+                            </div>
+                        </div> -->
+                </div>
+                <div class="card-footer">
+                    <div class="input-group">
+                       
+                            <form id="messageForm" class="input-group clearfix">
+                                <input type="text" id="message" placeholder="Type a message..." autocomplete="off"
+                                class="form-control" />
+                                <button type="submit" class="primary">To send</button>
+                            </form>
+                        
 
-			<div id="chat-page" class="hidden">
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+
+        <!--<div id="chat-page" class="hidden">
 				<div class="chat-container">
 					<div class="chat-header">
 						<h2>ChatBox</h2>
 					</div>
 					<div class="connecting">Connect to chat</div>
-					<ul id="messageArea">
-
-					</ul>
+					<ul id="messageArea"></ul>
 					<form id="messageForm" name="messageForm" nameForm="messageForm">
 						<div class="form-group">
 							<div class="input-group clearfix">
@@ -65,6 +139,7 @@
 						</div>
 					</form>
 				</div>
+<<<<<<< HEAD
 			</div>
     	<script th:src="@{/JS/index.js}"></script>
 
@@ -72,7 +147,16 @@
 
 	</body>
 </html>
+=======
+			</div> -->
+        <script th:inline="javascript">
+            var loggedInUser = [[${user}]];
+        </script>
+>>>>>>> 374ffb46da1d5176fd489188f5d35ce05c82835b
 
 
+        <script th:src="@{/JS/index.js}"></script>
+    </section>
+</body>
 
 </html>
