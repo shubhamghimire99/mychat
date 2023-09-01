@@ -41,15 +41,21 @@ public class UserController {
 	}
 	
 	
-	@RequestMapping("/chat")
-	public String chat(Model model ,Principal principal) {
+	@GetMapping("/chat")
+	public String chat(Model model, Principal principal) {
 		model.addAttribute("title", "Chats");
-		String username= principal.getName();
-		User user= userRepository.getUserByUserName(username);
-		model.addAttribute("user",user);
-		return "/user/chat";
-	}
+		String username = principal.getName();
+		User user = userRepository.getUserByUserName(username);
 
+		// Fetch all users except the logged-in user
+		List<User> allUsers = userRepository.findAll();
+		allUsers.remove(user); // Remove the logged-in user from the list
+
+		model.addAttribute("user", user);
+		model.addAttribute("allUsers", allUsers);
+
+		return "user/chat";
+	}
 	@RequestMapping("/groupchat")
 	public String groupchat(Model model, Principal principal) {
 		model.addAttribute("title", "Group Chat");
