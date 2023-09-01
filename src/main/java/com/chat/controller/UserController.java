@@ -4,7 +4,6 @@ import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,6 +53,13 @@ public class UserController {
 		model.addAttribute("user", user);
 		model.addAttribute("allUsers", allUsers);
 
+		
+		// Assuming your MessageRepository has a method to fetch messages by sender
+		List<Messages> userMessages = messageRepository.findAll();
+		
+		model.addAttribute("user", user);
+		model.addAttribute("userMessages", userMessages);
+
 		return "user/chat";
 	}
 	@RequestMapping("/groupchat")
@@ -82,17 +88,17 @@ public class UserController {
 
 	@RequestMapping("/cheat")
     public String chatPage(Model model, Principal principal) {
-        
-        model.addAttribute("title", "Chat");
+
+		model.addAttribute("title", "Chat");
 		String username = principal.getName();
 		User user = userRepository.getUserByUserName(username);
-		
+
 		// Assuming your MessageRepository has a method to fetch messages by sender
 		List<Messages> userMessages = messageRepository.findAll();
-		
+
 		model.addAttribute("user", user);
-		model.addAttribute("userMessages", userMessages); // Pass the messages to the template
-		
-		return "user/notification"; // Remove the leading slash
-    }
+		model.addAttribute("userMessages", userMessages);
+
+		return "user/notification";
+	}
 }
