@@ -108,10 +108,11 @@ public class UserController {
 		User user = userRepository.getUserByUserName(username);
 
 		// Fetch all users except the logged-in user
-        List<User> allUsers = userRepository.findAll();
-        allUsers.remove(user); // Remove the logged-in user from the list
+		List<User> allUsers = userRepository.findAll();
+		allUsers.remove(user); // Remove the logged-in user from the list
 
 		model.addAttribute("user", user);
+		model.addAttribute("allUsers", allUsers);
 		return "user/friend";
 	}
 }

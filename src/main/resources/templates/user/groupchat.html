@@ -108,10 +108,12 @@
                 <div class="card-footer">
                     <div class="input-group">
                        
-                            <form id="messageForm" class="input-group clearfix">
-                                <input type="text" id="message" placeholder="Type a message..." autocomplete="off"
-                                class="form-control" />
-                                <button type="submit" class="primary">To send</button>
+                            <form   id="messageForm" class="input-group clearfix">
+                                <input type="text" id="message" placeholder="Type a message..." autocomplete="off" required
+                                class="form-control type_msg" />
+                                <button type="submit" class="input-group-append bg-primary">
+                                    <i class="fas fa-location-arrow send_btn white "></i>
+                                </button>
                             </form>
                         
 
@@ -139,20 +141,10 @@
 						</div>
 					</form>
 				</div>
-<<<<<<< HEAD
-			</div>
-    	<script th:src="@{/JS/index.js}"></script>
-
-		</section>
-
-	</body>
-</html>
-=======
 			</div> -->
         <script th:inline="javascript">
             var loggedInUser = [[${user}]];
         </script>
->>>>>>> 374ffb46da1d5176fd489188f5d35ce05c82835b
 
 
         <script th:src="@{/JS/index.js}"></script>
