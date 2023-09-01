@@ -5,8 +5,10 @@ $(document).ready(function () {
 	});
 });
 
+/*for chating *//*
 
-/*for chating */
+
+
 'use strict';
 
 var usernamePage = document.querySelector('#username-page');
@@ -128,3 +130,6 @@ function getAvatarColor(messageSender) {
 
 usernameForm.addEventListener('submit', connect, true)
 messageForm.addEventListener('submit', send, true)
+
+
+
