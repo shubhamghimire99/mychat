@@ -19,68 +19,20 @@
                         </div>
                     </div>
                     <div class="card-body contacts_body">
-                        <ui class="contacts">
-                            <li class="active">
+                        <ul class="contacts">
+                            <li th:each="otherUser : ${allUsers}">
                                 <div class="d-flex bd-highlight">
                                     <div class="img_cont">
-                                        <img src="../IMG/profile.jpg" class="rounded-circle user_img">
+                                        <img th:src="@{/IMG/profile.jpg}" class="rounded-circle user_img">
                                         <span class="online_icon"></span>
                                     </div>
                                     <div class="user_info">
-                                        <span>Khalid</span>
-                                        <p>Kalid is online</p>
+                                        <span th:text="${otherUser.firstname + ' ' + otherUser.lastname}"></span>
+                                        <!-- You can add more information about the user if needed -->
                                     </div>
                                 </div>
                             </li>
-                            <li>
-                                <div class="d-flex bd-highlight">
-                                    <div class="img_cont">
-                                        <img src="../IMG/profile.jpg" class="rounded-circle user_img">
-                                        <span class="online_icon offline"></span>
-                                    </div>
-                                    <div class="user_info">
-                                        <span>Taherah Big</span>
-                                        <p>Taherah left 7 mins ago</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="d-flex bd-highlight">
-                                    <div class="img_cont">
-                                        <img src="../IMG/profile.jpg" class="rounded-circle user_img">
-                                        <span class="online_icon"></span>
-                                    </div>
-                                    <div class="user_info">
-                                        <span>Sami Rafi</span>
-                                        <p>Sami is online</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="d-flex bd-highlight">
-                                    <div class="img_cont">
-                                        <img src="../IMG/profile.jpg" class="rounded-circle user_img">
-                                        <span class="online_icon offline"></span>
-                                    </div>
-                                    <div class="user_info">
-                                        <span>Nargis Hawa</span>
-                                        <p>Nargis left 30 mins ago</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="d-flex bd-highlight">
-                                    <div class="img_cont">
-                                        <img src="../IMG/profile.jpg" class="rounded-circle user_img">
-                                        <span class="online_icon offline"></span>
-                                    </div>
-                                    <div class="user_info">
-                                        <span>Rashid Samim</span>
-                                        <p>Rashid left 50 mins ago</p>
-                                    </div>
-                                </div>
-                            </li>
-                        </ui>
+                        </ul>
                     </div>
                     <div class="card-footer"></div>
                 </div>

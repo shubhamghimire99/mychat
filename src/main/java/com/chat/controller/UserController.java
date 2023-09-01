@@ -37,25 +37,23 @@ public class UserController {
 
 		return "/user/user_profile";
 	}
-		@RequestMapping("/Update")
-	public String updateprofile(Model model, Principal principal) {
-		model.addAttribute("title", "Update your profile");
-		String username = principal.getName();
-		User user = userRepository.getUserByUserName(username);
-
-		model.addAttribute("user", user);
-		return "user/update";
-	}
-
+	
+	
 	@RequestMapping("/chat")
 	public String chat(Model model, Principal principal) {
 		model.addAttribute("title", "Chats");
 		String username = principal.getName();
 		User user = userRepository.getUserByUserName(username);
-		model.addAttribute("user", user);
-		return "/user/chat";
-	}
 
+		// Fetch all users except the logged-in user
+		List<User> allUsers = userRepository.findAll();
+		allUsers.remove(user); // Remove the logged-in user from the list
+
+		model.addAttribute("user", user);
+		model.addAttribute("allUsers", allUsers);
+
+		return "user/chat";
+	}
 	@RequestMapping("/groupchat")
 	public String groupchat(Model model, Principal principal) {
 		model.addAttribute("title", "Group Chat");
