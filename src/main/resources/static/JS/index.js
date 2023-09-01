@@ -5,7 +5,7 @@ $(document).ready(function () {
 	});
 });
 
-/*for chating *//*
+/*for chating */
 
 
 
