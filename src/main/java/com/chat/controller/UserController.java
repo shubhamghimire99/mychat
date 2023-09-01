@@ -86,11 +86,7 @@ public class UserController {
 	}
 
 	@RequestMapping("/cheat")
-<<<<<<< HEAD
     public String chatPage(Model model, Principal principal) {
-=======
-	public String chatPage(Model model, Principal principal) {
->>>>>>> 374ffb46da1d5176fd489188f5d35ce05c82835b
 
 		model.addAttribute("title", "Chat");
 		String username = principal.getName();
@@ -100,11 +96,6 @@ public class UserController {
 		List<Messages> userMessages = messageRepository.findAll();
 
 		model.addAttribute("user", user);
-<<<<<<< HEAD
-		model.addAttribute("userMessages", userMessages);
-
-		return "user/notification";
-=======
 		model.addAttribute("userMessages", userMessages); // Pass the messages to the template
 
 		return "user/notification"; // Remove the leading slash
@@ -122,6 +113,5 @@ public class UserController {
 
 		model.addAttribute("user", user);
 		return "user/friend";
->>>>>>> 374ffb46da1d5176fd489188f5d35ce05c82835b
 	}
 }
