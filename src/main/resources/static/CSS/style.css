@@ -774,13 +774,24 @@ html {
 }
 
 /* For Emojies */
-.emoji-picker {
-    
-    
+ .emoji {
     width: 50px;
-    border-radius: 0 15px 15px 0 !important;
-    border: 0 !important;
-    cursor: pointer;
-    
+    font-size: 30px ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background: none;
+    position: relative;
+} 
+.picker{
+   position:absolute;
+   top: -450px;
+   right: 0;
+   margin-bottom: 50px;
+   
+}
+.hide{
+    display: none;
 }
 

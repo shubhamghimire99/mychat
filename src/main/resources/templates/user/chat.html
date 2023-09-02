@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-  
+    
 </head>
 
 <body>
@@ -43,6 +43,7 @@
                     <div class="card">
                         <div class="card-header msg_head">
                             <div class="d-flex bd-highlight">
+                                <emoji-picker class="emoji"></emoji-picker>
                                 <div class="img_cont">
                                     <img src="../IMG/profile.jpg" class="rounded-circle user_img">
                                     <span class="online_icon"></span>
@@ -92,29 +93,23 @@
 
                         </div>
                         <div class="card-footer">
-                            <form th:action="@{/sendChat}" method="post" class="input-group">
+                            <form th:action="@{/sendChat}" method="post" class="input-group" id="chat-form">
                                
-                               
-                                
-
                                 <input type="text" name="message" id="message" placeholder="Type a message..."
                                     autocomplete="off" required class="form-control type_msg" />
-
-                                    <div id="emoji-picker" class="emoji-picker">
-                                        <i class="fa-solid fa-face-smile"></i>
-                                    </div>
+                                
+                                <i class="fa-regular fa-face-smile emoji" onclick="toggleEmote()"></i>
+                                
                                 <button type="submit" class="input-group-append bg-primary">
                                     <i class="fas fa-location-arrow send_btn white "></i>
                                 </button>
                             </form>
-                           
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <script src="https://cdn.jsdelivr.net/npm/emojimart@3/dist/js/emojimart.min.js"></script>
 
         <script th:inline="javascript">
             var user = [[${ user }]];

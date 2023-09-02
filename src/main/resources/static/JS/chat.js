@@ -38,24 +38,22 @@ socket.onmessage = function (event) {
     console.log("Received message: " + event.data);
 };
 //For Emojies
-console.log("emoji")
-const input = document.getElementById('message');
-const emojiPicker = new EmojiPicker({
-    emojiable_selector: '[data-emojiable=true]',
-    assetsPath: 'https://cdnjs.cloudflare.com/ajax/libs/emoji-picker/3.0.0/img',
-    popupButtonClasses: 'fa fa-smile-o'
-});
-emojiPicker.discover();
 
-document.getElementById('emoji-picker').addEventListener('emoji-click', function(event) {
-    input.value += event.detail.emoji;
-});
+const pickerOptions = { 
+    onEmojiSelect: console.log 
+};
+const picker = new EmojiMart.Picker(pickerOptions);
+picker.classList.toggle("hide");
+picker.classList.add("picker");
+document.getElementById("chat-form").appendChild(picker);
 
-document.getElementById('send-button').addEventListener('click', () => {
-    const messageInput = input.value;
-    const displayMessage = document.getElementById('display-message');
-    displayMessage.textContent = messageInput;
-});
+
+
+function toggleEmote() {
+    picker.classList.toggle("hide");
+}
+
+
 
 // function sendMessage() {
 //     var message = $("#message").val();

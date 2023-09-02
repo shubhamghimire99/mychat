@@ -4,7 +4,15 @@ $(document).ready(function () {
 		$('.action_menu').toggle();
 	});
 });
-
+//for emoji picker
+const pickerOptions = { onEmojiSelect: console.log };
+const picker = new EmojiMart.Picker(pickerOptions);
+picker.classList.toggle("hide");
+picker.classList.add("picker");
+document.getElementById("chat-form").appendChild(picker);
+function toggleEmote() {
+picker.classList.toggle("hide");
+}
 
 /*for chating */
 
