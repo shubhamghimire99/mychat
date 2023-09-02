@@ -666,14 +666,15 @@ html {
     font-size: 10px;
     color: rgba(255, 255, 255, 0.6);
 }
-
+.msg_cotainer p{
+    margin: 7px 7px 7px 7px;
+}
 .msg_cotainer {
     margin-top: auto;
     margin-bottom: auto;
     margin-left: 10px;
-    border-radius: 25px;
     background-color: #82ccdd;
-    padding: 10px;
+    padding: auto;
     position: relative;
 }
 
@@ -681,10 +682,12 @@ html {
     margin-top: auto;
     margin-bottom: auto;
     margin-right: 10px;
-    border-radius: 25px;
     background-color: #78e08f;
-    padding: 10px;
+    padding: auto;
     position: relative;
+}
+.msg_cotainer_send p{
+    margin: 7px 7px 7px 7px;
 }
 
  .msg_time {
