@@ -3,7 +3,7 @@ package com.chat.entities;
 
 public class ChatMessage {
     private String content;
-    private String sender;
+    private String  sender;
     private MessageType type;
 
     public enum MessageType {
