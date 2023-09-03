@@ -6,8 +6,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.chat.dao.MessageRepository;
 import com.chat.dao.UserRepository;
@@ -114,5 +116,12 @@ public class UserController {
 		model.addAttribute("user", user);
 		model.addAttribute("allUsers", allUsers);
 		return "user/friend";
+	}
+
+	@PostMapping("/add_image")
+	public String addImage(Model model, Principal principal , @RequestParam("profileS")MultipartFile file){
+		String username = principal.getName();
+		User user= userRepository.getUserByUserName(username);
+		return "user/profile";
 	}
 }

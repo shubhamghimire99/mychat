@@ -21,26 +21,35 @@
                                 </span>
     
                                 <div class="space space-4"></div>
-    
+                              
                                 <a href="#" class="btn btn-sm btn-block btn-success">
                                     <i class="ace-icon fa fa-plus-circle bigger-120"></i>
-                                    <span class="bigger-110">Insert profile Picture</span>
+                                    <span class="bigger-110" id="popupButton" >Insert profile Picture</span>
                                 </a>
-    
+
+                                <div id="popup" class="popup">
+                                    <div class="popup-content">
+                                        <span class="close" id="closePopup">&times;</span>
+                                        <h2>Insert Your Profile Picture</h2>
+                                        <form enctype="multipart/form-data" action="@{/add_image}">
+                                            <div class="mb-3">
+                                                <input type="file" name=""/>
+                                                <button type="submit">Submmit</button>
+                                              </div> 
+                                        </form>
+                                    </div>
+                                </div>
+                               
                                 <a th:href="@{/user/Update}" class="btn btn-sm btn-block btn-primary">
                                     <i class="ace-icon fa fa-envelope-o bigger-110"></i>
-                                    <span class="bigger-110">edit profile</span>
+                                    <span class="bigger-110" >edit profile</span>
                                 </a>
                             </div><!-- /.col -->
     
                             <div class="col-xs-12 col-md-6 profile-details">
                                 <h4 class="blue">
                                     <span class="middle" th:text="${user.uname}"></span>
-    
-<!--                                    <span class="label label-purple arrowed-in-right">-->
-<!--                                        <i class="ace-icon fa fa-circle smaller-80 align-middle"></i>-->
-<!--                                        online-->
-<!--                                    </span>-->
+                      
                                 </h4>
     
                                 <div class="profile-user-info">
@@ -66,23 +75,7 @@
                                         <div class="profile-info-name"> Email </div>
     
                                         <div class="profile-info-value">
-                                            <span th:text="${user.lastname}"></span>
-                                        </div>
-                                    </div>
-    
-                                    <div class="profile-info-row">
-                                        <div class="profile-info-name"> Joined </div>
-    
-                                        <div class="profile-info-value">
-                                            <span>2010/06/20</span>
-                                        </div>
-                                    </div>
-    
-                                    <div class="profile-info-row">
-                                        <div class="profile-info-name"> Last Online </div>
-    
-                                        <div class="profile-info-value">
-                                            <span>3 hours ago</span>
+                                            <span th:text="${user.Email}"></span>
                                         </div>
                                     </div>
 
@@ -95,7 +88,7 @@
                 </div>
             </div>
         </div>
-		
+		<script th:src="@{/JS/profile.js}"></script>
 	</section>
 </body>
 
