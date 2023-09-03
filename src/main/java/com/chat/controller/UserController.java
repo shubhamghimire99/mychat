@@ -3,7 +3,7 @@ package com.chat.controller;
 import java.security.Principal;
 import java.util.List;
 
-import com.chat.dao.FriendRepogetory;
+import com.chat.dao.FriendRepository;
 import com.chat.entities.Friend;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -76,7 +76,7 @@ public class UserController {
 	}
 
 	@Autowired
-	private FriendRepogetory friendRepogetory;
+	private FriendRepository friendRepogetory;
 
 	@RequestMapping("/notification")
 	public String notification(Model model, Principal principal) {
@@ -110,6 +110,7 @@ public class UserController {
 		friendRepogetory.getFriendRequest(user.getId());
 		List<Friend> requestList = friendRepogetory.getFriendRequest(user.getId());
 		model.addAttribute("requests",requestList);
+		
 		return "user/notification"; // Remove the leading slash
 	}
 

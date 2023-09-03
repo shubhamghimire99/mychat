@@ -1,6 +1,6 @@
 package com.chat.controller;
 
-import com.chat.dao.FriendRepogetory;
+import com.chat.dao.FriendRepository;
 import com.chat.dao.UserRepository;
 import com.chat.entities.Friend;
 import com.chat.entities.User;
@@ -18,7 +18,7 @@ public class FriendController {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private FriendRepogetory friendRepogetory;
+    private FriendRepository friendRepogetory;
 
     @PostMapping("/send_request")
     public String sendRequest(@RequestParam("reciver") Integer id, Principal principal){
@@ -30,6 +30,6 @@ public class FriendController {
         friend.setStatus("PENDING");
         friendRepogetory.save(friend);
         System.out.println(id);
-        return "redirect:/user/profile";
+        return "redirect:/user/profiles";
     }
 }
