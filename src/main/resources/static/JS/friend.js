@@ -10,3 +10,5 @@ function scrollToBottom() {
     var scrollableArea = document.getElementById('chat');
     scrollableArea.scrollTop = scrollableArea.scrollHeight;
 }
+
+

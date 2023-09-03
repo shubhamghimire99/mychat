@@ -13,12 +13,12 @@
                 <div class="col-md-4 col-xl-6 chat">
                     <div class="card mb-sm-3 mb-md-0 contacts_card">
                         <div class="card-header">
-                            <div class="input-group">
+                            <!-- <div class="input-group">
                                 <input type="text" placeholder="Search..." name="" class="form-control search">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text search_btn"><i class="fas fa-search"></i></span>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="card-body contacts_body">
                             <ul class="contacts">
@@ -33,15 +33,17 @@
                                             <!-- You can add more information about the user if needed -->
                                         </div>
                                         <div class="align-self-center frnd_btn">
-                                            <button type="submit" class="input-group-append">
-                                                Send friend request
-                                            </button>
+                                            <form th:action="@{/send_request}" method="post">
+                                                <input  hidden name="reciver" th:value="${otherUser.id}">
+                                                <button type="submit" class="input-group-append">
+                                                    Send friend request
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
                                 </li>
                             </ul>
                         </div>
-                        <div class="card-footer"></div>
                     </div>
                 </div>
 
