@@ -3,6 +3,8 @@ package com.chat.controller;
 import java.security.Principal;
 import java.util.List;
 
+import com.chat.dao.FriendRepogetory;
+import com.chat.entities.Friend;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,8 +41,8 @@ public class UserController {
 
 		return "/user/user_profile";
 	}
-	
-	
+
+
 	@RequestMapping("/chat")
 	public String chat(Model model, Principal principal) {
 		model.addAttribute("title", "Chats");
@@ -54,15 +56,16 @@ public class UserController {
 		model.addAttribute("user", user);
 		model.addAttribute("allUsers", allUsers);
 
-		
+
 		// Assuming your MessageRepository has a method to fetch messages by sender
 		List<Messages> userMessages = messageRepository.findAll();
-		
+
 		model.addAttribute("user", user);
 		model.addAttribute("userMessages", userMessages);
 
 		return "user/chat";
 	}
+
 	@RequestMapping("/groupchat")
 	public String groupchat(Model model, Principal principal) {
 		model.addAttribute("title", "Group Chat");
@@ -71,6 +74,9 @@ public class UserController {
 		model.addAttribute("user", user);
 		return "/user/groupchat";
 	}
+
+	@Autowired
+	private FriendRepogetory friendRepogetory;
 
 	@RequestMapping("/notification")
 	public String notification(Model model, Principal principal) {
@@ -83,6 +89,7 @@ public class UserController {
 
 		model.addAttribute("user", user);
 		model.addAttribute("userMessages", userMessages); // Pass the messages to the template
+
 
 		return "user/notification"; // Remove the leading slash
 	}
@@ -100,6 +107,9 @@ public class UserController {
 		model.addAttribute("user", user);
 		model.addAttribute("userMessages", userMessages); // Pass the messages to the template
 
+		friendRepogetory.getFriendRequest(user.getId());
+		List<Friend> requestList = friendRepogetory.getFriendRequest(user.getId());
+		model.addAttribute("requests",requestList);
 		return "user/notification"; // Remove the leading slash
 	}
 
