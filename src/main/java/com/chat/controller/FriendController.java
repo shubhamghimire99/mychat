@@ -13,12 +13,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.security.Principal;
 
 @Controller
-@RequestMapping("/user")
 public class FriendController {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private FriendRepository friendRepogetory;
+    private FriendRepository friendRepository;
 
     @PostMapping("/send_request")
     public String sendRequest(@RequestParam("reciver") Integer id, Principal principal){
@@ -28,8 +27,8 @@ public class FriendController {
         friend.setReceiver(id);
         friend.setSender(sender.getId());
         friend.setStatus("PENDING");
-        friendRepogetory.save(friend);
+        friendRepository.save(friend);
         System.out.println(id);
-        return "redirect:/user/profiles";
+        return "redirect:/user/friends";
     }
 }

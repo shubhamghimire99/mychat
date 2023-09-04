@@ -135,4 +135,15 @@ public class UserController {
 		User user= userRepository.getUserByUserName(username);
 		return "user/profile";
 	}
+	@RequestMapping("/update")
+	public String updateProfile(Model model, Principal principal){
+		model.addAttribute("title", "Group Chat");
+		String username = principal.getName();
+		
+		User user = userRepository.getUserByUserName(username);
+		model.addAttribute("user", user);
+
+		return "/user/update";
+	}
+	
 }

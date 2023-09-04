@@ -8,23 +8,23 @@
 
 <body>
 	<section class="container" style="padding-top: 70px;">
-<!--		<div class="container-fluid h-100">-->
-<!--            <div class="row justify-content-center h-100">-->
-<!--                <div class="col-md-4 col-xl-6 chat">-->
-<!--                    <div class="card mb-sm-3 mb-md-0 contacts_card">-->
-<!--						<div class="message" id="chat">-->
-<!--							<div th:if="${userMessages.empty}" class="mt-5 message-box">-->
-<!--								<p>No notifications.</p>-->
-<!--							</div>-->
-<!--							-->
-<!--							<div th:each="message : ${userMessages}" class="message-box">-->
-<!--								<p th:text="${message.sender} + ' says: ' + ${message.message}"></p>-->
-<!--								<p th:text="${message.timestamp}"></p>-->
-<!--							</div>-->
-<!--						</div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
+		<!-- <div class="container-fluid h-100">
+           <div class="row justify-content-center h-100">
+               <div class="col-md-4 col-xl-6 chat">
+                   <div class="card mb-sm-3 mb-md-0 contacts_card">
+						<div class="message" id="chat">
+							<div th:if="${userMessages.empty}" class="mt-5 message-box">
+								<p>No notifications.</p>
+							</div>
+							
+							<div th:each="message : ${userMessages}" class="message-box">
+								<p th:text="${message.sender} + ' says: ' + ${message.message}"></p>
+								<p th:text="${message.timestamp}"></p>
+							</div>
+						</div>
+					</div>
+                    </div>
+            		 </div> -->
 		<ul>
 			<li th:if="${requests.empty}">
 				No friend requests
