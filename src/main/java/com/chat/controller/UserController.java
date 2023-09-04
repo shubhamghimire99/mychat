@@ -10,8 +10,6 @@ import java.util.List;
 import com.chat.dao.FriendRepository;
 import com.chat.entities.Friend;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -175,7 +173,7 @@ public class UserController {
 
 				// Specify the path where you want to save the image (e.g., a directory on your
 				// server)
-				String imagePath = "\\IMG" + filename;
+				String imagePath = "C:\\Users\\ACER NITRP-5\\Downloads\\chats\\mychat\\src\\main\\resources\\static\\IMG\\" + filename;
 
 				String imgPath = "/IMG/"+filename;
 
