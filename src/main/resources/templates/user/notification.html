@@ -8,6 +8,7 @@
 
 <body>
 	<section class="container" style="padding-top: 70px;">
+		<!--
 		<div class="container-fluid h-100">
            <div class="row justify-content-center h-100">
                <div class="col-md-4 col-xl-6 chat">
@@ -24,13 +25,14 @@
 						</div>
 					</div>
                     </div>
-            		 </div>
+            		 </div>-->
 		<ul>
 			<li th:if="${requests.empty}">
 				No friend requests
 			</li>
 			<li th:each="request : ${requests}">
 				<span th:text="${request.sender}"></span>
+				
 			</li>
 		</ul>
 		<style>

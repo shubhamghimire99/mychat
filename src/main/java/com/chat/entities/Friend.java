@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 
 @Entity
 public class Friend {
+
+
     private Integer receiver;
 
     private Integer sender;
@@ -13,13 +15,6 @@ public class Friend {
     private Integer id;
 
     public Friend() {
-    }
-
-    public Friend(Integer receiver, Integer sender, String status, Integer id) {
-        this.receiver = receiver;
-        this.sender = sender;
-        this.status = status;
-        this.id = id;
     }
 
     public Friend(Integer receiver, Integer sender, String status) {

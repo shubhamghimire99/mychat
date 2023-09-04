@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.chat.dao.FriendRepository;
@@ -111,9 +112,13 @@ public class UserController {
 		model.addAttribute("user", user);
 		model.addAttribute("userMessages", userMessages); // Pass the messages to the template
 
+		List<User> users =new ArrayList<>();
+
+
 		friendRepogetory.getFriendRequest(user.getId());
 		List<Friend> requestList = friendRepogetory.getFriendRequest(user.getId());
 		model.addAttribute("requests", requestList);
+
 
 		return "user/notification"; // Remove the leading slash
 	}
@@ -175,7 +180,7 @@ public class UserController {
 
 				// Specify the path where you want to save the image (e.g., a directory on your
 				// server)
-				String imagePath = "\\IMG" + filename;
+				String imagePath = "C:\\Users\\shubh\\Documents\\workspace-spring-tool-suite-4-4.19.1.RELEASE\\mychats\\src\\main\\resources\\static\\IMG\\" + filename;
 
 				String imgPath = "/IMG/"+filename;
 

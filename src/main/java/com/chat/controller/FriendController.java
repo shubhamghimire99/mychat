@@ -30,4 +30,5 @@ public class FriendController {
         System.out.println(id);
         return "redirect:/user/friends";
     }
+    
 }
