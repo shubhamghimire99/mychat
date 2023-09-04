@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.chat.dao.FriendRepository;
@@ -109,9 +110,13 @@ public class UserController {
 		model.addAttribute("user", user);
 		model.addAttribute("userMessages", userMessages); // Pass the messages to the template
 
+		List<User> requestUsers = new ArrayList<>();
 		friendRepogetory.getFriendRequest(user.getId());
 		List<Friend> requestList = friendRepogetory.getFriendRequest(user.getId());
-		model.addAttribute("requests", requestList);
+		for (Friend f: requestList){
+			requestUsers.add(userRepository.getReferenceById(f.getSender()));
+		}
+		model.addAttribute("requests", requestUsers);
 
 		return "user/notification"; // Remove the leading slash
 	}
