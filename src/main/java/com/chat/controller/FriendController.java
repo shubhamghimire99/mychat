@@ -31,4 +31,13 @@ public class FriendController {
         return "redirect:/user/friends";
     }
     
+    @PostMapping("/acceptRequest")
+    public String acceptRequest(@RequestParam("id") Integer senderId, Principal principal){
+        User receiver = userRepository.getUserByUserName(principal.getName());
+        Friend getRequest = friendRepository.getRequestBySenderAndReceiverID(senderId,receiver.getId());
+        getRequest.setStatus("ACCEPTED");
+        friendRepository.save(getRequest);
+        return "redirect:/user/friends";
+    }
+
 }

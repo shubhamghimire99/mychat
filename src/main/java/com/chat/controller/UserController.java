@@ -11,8 +11,6 @@ import java.util.List;
 import com.chat.dao.FriendRepository;
 import com.chat.entities.Friend;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -115,9 +113,13 @@ public class UserController {
 		List<User> users =new ArrayList<>();
 
 
+		List<User> requestUsers = new ArrayList<>();
 		friendRepogetory.getFriendRequest(user.getId());
 		List<Friend> requestList = friendRepogetory.getFriendRequest(user.getId());
-		model.addAttribute("requests", requestList);
+		for (Friend f: requestList){
+			requestUsers.add(userRepository.getReferenceById(f.getSender()));
+		}
+		model.addAttribute("requests", requestUsers);
 
 
 		return "user/notification"; // Remove the leading slash
@@ -180,7 +182,7 @@ public class UserController {
 
 				// Specify the path where you want to save the image (e.g., a directory on your
 				// server)
-				String imagePath = "C:\\Users\\shubh\\Documents\\workspace-spring-tool-suite-4-4.19.1.RELEASE\\mychats\\src\\main\\resources\\static\\IMG\\" + filename;
+				String imagePath = "C:\\Users\\ACER NITRP-5\\Downloads\\chats\\mychat\\src\\main\\resources\\staticC:\\Users\\shubh\\Documents\\workspace-spring-tool-suite-4-4.19.1.RELEASE\\mychats\\src\\main\\resources\\static\\IMG\\\\" + filename;
 
 				String imgPath = "/IMG/"+filename;
 
