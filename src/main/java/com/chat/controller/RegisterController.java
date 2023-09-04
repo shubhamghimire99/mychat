@@ -37,7 +37,7 @@ public class RegisterController {
 		
 		user.setRole("ROLE_USER");
 		user.setEnabled(true);
-		user.setImageUrl("/IMG/profile.jpg");
+		user.setImageUrl("/IMG/profile.png");
 		user.setPassword(passwordEncorder.encode(user.getPassword()));
 		
 		User result = this.userRepository.save(user);

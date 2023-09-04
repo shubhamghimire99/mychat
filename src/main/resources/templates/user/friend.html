@@ -25,7 +25,7 @@
                                 <li th:each="otherUser : ${allUsers}">
                                     <div class="d-flex bg-dark text-light">
                                         <div class="img_cont">
-                                            <img th:src="@{/IMG/profile.jpg}" class="rounded-circle user_img">
+                                            <img th:src="${otherUser.imageUrl}" class="rounded-circle user_img">
                                             <span class="online_icon"></span>
                                         </div>
                                         <div class="user_info">

@@ -26,7 +26,7 @@ socket.onmessage = function (event) {
     messageElement.className = "d-flex justify-content-start mb-4";
 
     messageElement.innerHTML = "<div class=\"img_cont_msg\">" +
-        "<img src=\"https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg\" class=\"rounded-circle user_img_msg\">" +
+        "<img src=\"../IMG/profile.png\" class=\"rounded-circle user_img_msg\">" +
         "</div>" +
         "<div class=\"msg_cotainer\">"+"<p>"+ message.message+"</p>" +
         "<span class=\"msg_time\">" + message.sender + "</span>"

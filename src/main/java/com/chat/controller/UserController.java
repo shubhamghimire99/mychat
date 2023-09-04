@@ -182,7 +182,7 @@ public class UserController {
 
 				// Specify the path where you want to save the image (e.g., a directory on your
 				// server)
-				String imagePath = "C:\\Users\\ACER NITRP-5\\Downloads\\chats\\mychat\\src\\main\\resources\\staticC:\\Users\\shubh\\Documents\\workspace-spring-tool-suite-4-4.19.1.RELEASE\\mychats\\src\\main\\resources\\static\\IMG\\\\" + filename;
+				String imagePath = "C:\\Users\\shubh\\Documents\\workspace-spring-tool-suite-4-4.19.1.RELEASE\\mychats\\src\\main\\resources\\static\\IMG\\" + filename;
 
 				String imgPath = "/IMG/"+filename;
 

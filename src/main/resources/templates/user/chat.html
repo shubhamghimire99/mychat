@@ -25,7 +25,7 @@
                                 <li th:each="otherUser : ${allUsers}">
                                     <div class="d-flex bd-highlight">
                                         <div class="img_cont">
-                                            <img th:src="@{/IMG/profile.jpg}" class="rounded-circle user_img">
+                                            <img th:src="${otherUser.imageUrl}" class="rounded-circle user_img">
                                             <span class="online_icon"></span>
                                         </div>
                                         <div class="user_info">
@@ -45,11 +45,11 @@
                             <div class="d-flex bd-highlight">
                                 <emoji-picker class="emoji"></emoji-picker>
                                 <div class="img_cont">
-                                    <img src="../IMG/profile.jpg" class="rounded-circle user_img">
+                                    <img th:src="${user.imageUrl}" class="rounded-circle user_img">
                                     <span class="online_icon"></span>
                                 </div>
                                 <div class="user_info">
-                                    <span>Chat with <span th:text="${user.uname}"></span></span>
+                                    <span>Group Chat For <span th:text="${user.uname}"></span></span>
                                     <p>1767 Messages</p>
                                 </div>
 
@@ -74,7 +74,7 @@
                                         <span class="msg_time_send" th:text="${message.sender}"></span>
                                     </div>
                                     <div class="img_cont_msg">
-                                        <img src="../IMG/profile.jpg" class="rounded-circle user_img_msg">
+                                        <img th:src="${user.imageUrl}" class="rounded-circle user_img_msg">
                                     </div>
                                 </div>
 
@@ -82,7 +82,7 @@
                                 <div th:unless="${message.sender == user.firstname}"
                                     class="d-flex justify-content-start mb-4" id="messageArea">
                                     <div class="img_cont_msg">
-                                        <img src="../IMG/profile.jpg" class="rounded-circle user_img_msg">
+                                        <img src="../IMG/profile.png" class="rounded-circle user_img_msg">
                                     </div>
                                     <div class="msg_cotainer">
                                         <p th:text="${message.message}"></p>
