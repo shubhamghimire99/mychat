@@ -1,14 +1,20 @@
 package com.chat.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.List;
 
 import com.chat.dao.FriendRepository;
 import com.chat.entities.Friend;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.domain.JpaSort.Path;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,9 +46,8 @@ public class UserController {
 
 		model.addAttribute("user", user);
 
-		return "/user/user_profile";
+		return "/user/update";
 	}
-
 
 	@RequestMapping("/chat")
 	public String chat(Model model, Principal principal) {
@@ -56,7 +61,6 @@ public class UserController {
 
 		model.addAttribute("user", user);
 		model.addAttribute("allUsers", allUsers);
-
 
 		// Assuming your MessageRepository has a method to fetch messages by sender
 		List<Messages> userMessages = messageRepository.findAll();
@@ -91,12 +95,11 @@ public class UserController {
 		model.addAttribute("user", user);
 		model.addAttribute("userMessages", userMessages); // Pass the messages to the template
 
-
 		return "user/notification"; // Remove the leading slash
 	}
 
 	@RequestMapping("/cheat")
-    public String chatPage(Model model, Principal principal) {
+	public String chatPage(Model model, Principal principal) {
 
 		model.addAttribute("title", "Chat");
 		String username = principal.getName();
@@ -110,8 +113,8 @@ public class UserController {
 
 		friendRepogetory.getFriendRequest(user.getId());
 		List<Friend> requestList = friendRepogetory.getFriendRequest(user.getId());
-		model.addAttribute("requests",requestList);
-		
+		model.addAttribute("requests", requestList);
+
 		return "user/notification"; // Remove the leading slash
 	}
 
@@ -131,29 +134,71 @@ public class UserController {
 	}
 
 	@PostMapping("/add_image")
-	public String addImage(Model model, Principal principal , @RequestParam("profile_pic")MultipartFile file){
+	public String addImage(Model model, Principal principal, @RequestParam("profile_pic") MultipartFile file) {
 		String username = principal.getName();
-		User user= userRepository.getUserByUserName(username);
-		 
-		if(file.isEmpty()){
+		User user = userRepository.getUserByUserName(username);
+
+		if (file.isEmpty()) {
 			System.out.println("no image Found");
-		}
-		else{
+		} else {
 			user.setImageUrl(file.getOriginalFilename());
-			
+
 		}
 
 		return "user/profile";
 	}
-	@RequestMapping("/update")
-	public String updateProfile(Model model, Principal principal){
-		model.addAttribute("title", "Group Chat");
-		String username = principal.getName();
-		
-		User user = userRepository.getUserByUserName(username);
-		model.addAttribute("user", user);
 
-		return "/user/update";
+	@PostMapping("/update_profile")
+	public String handleProfileUpdate(
+			@ModelAttribute User userForm, // Bind form data to the User object
+			@RequestParam("profile") MultipartFile file,
+			Model model, Principal principal) {
+		// Fetch the user from the database using the authenticated user's username
+		String username = principal.getName();
+		User user = userRepository.getUserByUserName(username);
+
+		if (user != null) {
+			// Update fields like name, surname, mobile number based on form data
+			user.setFirstname(userForm.getFirstname());
+			user.setLastname(userForm.getLastname());
+			user.setContact(userForm.getContact());
+
+			// Save the updated user object to the database
+			userRepository.save(user);
+		}
+
+		// Process the uploaded profile picture
+		if (!file.isEmpty()) {
+			try {
+				// Generate a unique filename based on the user's data
+				String filename = user.getFirstname() + "_" + user.getLastname() + "_" + user.getId() + ".png";
+
+				// Specify the path where you want to save the image (e.g., a directory on your
+				// server)
+				String imagePath = "\\IMG" + filename;
+
+				String imgPath = "/IMG/"+filename;
+
+				// Save the uploaded profile picture to the specified path
+				try {
+					file.transferTo(new File(imagePath));
+				} catch (Exception e) {
+					System.out.println("Error saving file: " + e.getMessage());
+				}
+				System.out.println("Profile picture saved");
+
+				// Optionally, you can save the file path to the user's profile
+				user.setImageUrl(imgPath);
+				userRepository.save(user);
+			} catch (Exception e) {
+				// Handle file processing errors
+				model.addAttribute("error", "Failed to upload profile picture: " + e.getMessage());
+				return "user/update";
+			}
+		}
+
+		// Redirect to a success page or back to the profile update view
+		return "redirect:/user/profile";
 	}
 
 }

@@ -10,16 +10,18 @@
     <div class="container bg-white container_update">
       <div class="row d-flex flex-column align-items-center">
         <div class="col-md-3  col-md-12 border-bottom">
-          <div class="d-flex flex-column align-items-center text-center profile"><img class="rounded-circle "
-              width="150px"
-              src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span
-              class="font-weight-bold">Edogaru</span><span class="text-black-50">edogaru@mail.com.my</span><span>
-            </span></div>
+          <div class="d-flex flex-column align-items-center text-center profile">
+            <img class="rounded-circle " width="150px" th:src="${user.imageUrl}">  
+            <span class="font-weight-bold" th:text="${user.uname}">
+              </span>
+            <span class="text-black-50" th:text="${user.email}"></span><span>
+            </span>
+          </div>
         </div>
         <div class="container mt-2">
           <div class="d-flex justify-content-center">
             <button type="button" class="btn btn-primary edit-button">
-              <i class="bi bi-pencil"></i> Edit
+              <i class="fa fa-pencil" aria-hidden="true"></i> Edit
             </button>
           </div>
         </div>
@@ -28,92 +30,57 @@
             <div class="profile-edit">
               <h4 class="text-center">Profile Settings</h4>
             </div>
-            <form th:action="@{update_profile}" method="post">
+            <form th:action="@{update_profile}" method="post" enctype="multipart/form-data">
               <div class="row ">
-                <div class="col-md-6"><label class="labels">Name</label><input type="text" class="form-control"
-                    placeholder="first name" value="" disabled></div>
-                <div class="col-md-6"><label class="labels">Surname</label><input type="text" class="form-control"
-                    value="" placeholder="surname" disabled></div>
-              </div>
-              <div class="row mt-3">
-                <div class="col-md-12"><label class="labels">Mobile Number</label><input type="text"
-                    class="form-control" placeholder="enter phone number" value="" disabled></div>
-                <div class="col-md-12"><label class="labels">Address</label><input type="text" class="form-control"
-                    placeholder="Enter your address" value="" disabled></div>
-                <div class="col-md-12"><label class="labels">State</label><input type="text" class="form-control"
-                    placeholder="enter address line 2" value="" disabled></div>
-                <div class="col-md-12 "><label class="labels">Gender</label>
-                  <table cellspacing="5" cellpading="5">
-                    <tr>
-                      <td>
-                        <input type="radio" class="form-control radio" name="Gender" value="Male" disabled>
-                      </td>
-                      <td class="td-label">
-                        <label for="Male">Male</label><br>
-                      </td>
-
-                    </tr>
-                    <tr>
-                      <td>
-                        <input type="radio" class="form-control radio" name="Gender" value="Male" disabled>
-
-                      </td>
-                      <td class="td-label">
-                        <label for="Female">Female</label><br>
-
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <input type="radio" class="form-control radio" name="Gender" value="Male" disabled>
-
-                      </td>
-                      <td class="td-label">
-                        <label for="Other">Others</label><br>
-                      </td>
-                    </tr>
-                  </table>
-
+                <div class="col-md-6">
+                  <label class="labels">Name</label>
+                  <input type="text" class="form-control" th:value="${user.firstname}" name="firstname" disabled>
+                </div>
+                <div class="col-md-6">
+                  <label class="labels">Surname</label>
+                  <input type="text" class="form-control" value="" th:value="${user.lastname}" name="lastname" disabled>
                 </div>
               </div>
-
-              
+              <div class="row mt-3">
+                <div class="col-md-12">
+                  <label class="labels">Username</label>
+                  <input type="text" class="form-control" th:value="${user.uname}" value="" name="uname" disabled>
+                </div>
+                <div class="col-md-12"><label class="labels">Mobile Number</label>
+                  <input type="text" class="form-control" th:value="${user.contact}" value="" name="contact" disabled>
+                </div>
+                <div class="col-md-12"><label class="labels">Insert an Profile Image</label>
+                  <input type="file" class="form-control" name="profile" disabled />
+                </div>
+                <div class="d-flex justify-content-center mt-5 text-center">
+                  <button class="btn btn-primary profile-button" type="submit" style="display: none;">
+                    Save Profile <i class="fas fa-save"></i></button>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
-        <div class="col-md-4">
-          <d iv class="">
-            <div class="col-md-12 "><label class="labels">Description</label>
-              <textarea type="text" class="form-control" disabled>Description
-                      </textarea>
-            </div>
-        </div>
-        <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Save
-          Profile</button></div>
       </div>
-      
-      </form>
-    </div>
-    </div>
-    </div>
 
-    <script>
-      // JavaScript for enabling editing and saving profile data
-      const editButton = document.querySelector('.edit-button');
-      const saveButton = document.querySelector('.profile-button');
-      const formInputs = document.querySelectorAll('.form-control');
+      <script>
+        // JavaScript for enabling editing and saving profile data
+        const editButton = document.querySelector('.edit-button');
+        const saveButton = document.querySelector('.profile-button');
+        const formInputs = document.querySelectorAll('.form-control');
 
-      editButton.addEventListener('click', () => {
-        
-        if ( formInputs[0].disabled ) {
-          formInputs.forEach(input => input.disabled = false);
-          editButton.innerHTML = '<i class="bi bi-pencil"></i> Cancel';
-          saveButton.style.display = 'block';
-        } else {
-          formInputs.forEach(input => input.disabled = true);
-          editButton.innerHTML = '<i class="bi bi-pencil"></i> Edit';
-          saveButton.style.display = 'none';
-        }
-      });
-    </script>
+        editButton.addEventListener('click', () => {
+
+          if (formInputs[0].disabled) {
+            formInputs.forEach(input => input.disabled = false);
+            editButton.innerHTML = '<i class="fa fa-ban" aria-hidden="true"></i> Cancel';
+            saveButton.style.display = 'block';
+          } else {
+            formInputs.forEach(input => input.disabled = true);
+            editButton.innerHTML = '<i class="fa fa-pencil" aria-hidden="true"></i> Edit';
+            saveButton.style.display = 'none';
+          }
+        });
+      </script>
   </section>
 </body>
 
