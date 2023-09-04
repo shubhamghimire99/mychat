@@ -18,7 +18,7 @@ public class WebSocketConfig implements WebSocketConfigurer,WebSocketMessageBrok
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(new ChatWebSocketHandler(), "/cheat");
+        registry.addHandler(new ChatWebSocketHandler(), "/chat");
     }
     
     @Override

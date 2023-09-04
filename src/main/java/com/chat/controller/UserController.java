@@ -6,6 +6,7 @@ import java.util.List;
 import com.chat.dao.FriendRepository;
 import com.chat.entities.Friend;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.JpaSort.Path;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -130,9 +131,18 @@ public class UserController {
 	}
 
 	@PostMapping("/add_image")
-	public String addImage(Model model, Principal principal , @RequestParam("profileS")MultipartFile file){
+	public String addImage(Model model, Principal principal , @RequestParam("profile_pic")MultipartFile file){
 		String username = principal.getName();
 		User user= userRepository.getUserByUserName(username);
+		 
+		if(file.isEmpty()){
+			System.out.println("no image Found");
+		}
+		else{
+			user.setImageUrl(file.getOriginalFilename());
+			
+		}
+
 		return "user/profile";
 	}
 	@RequestMapping("/update")
@@ -145,5 +155,5 @@ public class UserController {
 
 		return "/user/update";
 	}
-	
+
 }
