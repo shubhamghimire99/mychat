@@ -3,6 +3,9 @@
 
 <head>
   <meta charset="UTF-8">
+
+   
+
 </head>
 
 <body>
@@ -102,16 +105,10 @@
       const formInputs = document.querySelectorAll('.form-control');
 
       editButton.addEventListener('click', () => {
-        
-        if ( formInputs[0].disabled ) {
-          formInputs.forEach(input => input.disabled = false);
-          editButton.innerHTML = '<i class="bi bi-pencil"></i> Cancel';
-          saveButton.style.display = 'block';
-        } else {
-          formInputs.forEach(input => input.disabled = true);
-          editButton.innerHTML = '<i class="bi bi-pencil"></i> Edit';
-          saveButton.style.display = 'none';
-        }
+        formInputs.forEach(input => {
+          input.disabled = false;
+        });
+        saveButton.disabled = false;
       });
     </script>
   </section>

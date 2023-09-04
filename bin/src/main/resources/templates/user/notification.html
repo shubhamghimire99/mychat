@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::Layout(~{::section})">
+
+<head>
+	<meta charset="UTF-8" />
+
+</head>
+
+<body>
+	<section class="container" style="padding-top: 70px;">
+		<!-- <div class="container-fluid h-100">
+           <div class="row justify-content-center h-100">
+               <div class="col-md-4 col-xl-6 chat">
+                   <div class="card mb-sm-3 mb-md-0 contacts_card">
+						<div class="message" id="chat">
+							<div th:if="${userMessages.empty}" class="mt-5 message-box">
+								<p>No notifications.</p>
+							</div>
+							
+							<div th:each="message : ${userMessages}" class="message-box">
+								<p th:text="${message.sender} + ' says: ' + ${message.message}"></p>
+								<p th:text="${message.timestamp}"></p>
+							</div>
+						</div>
+					</div>
+                    </div>
+            		 </div> -->
+		<ul>
+			<li th:if="${requests.empty}">
+				No friend requests
+			</li>
+			<li th:each="request : ${requests}">
+				<span th:text="${request.sender}"></span>
+			</li>
+		</ul>
+		<style>
+			form {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
+
+			input {
+				padding: 10px;
+				border-radius: 5px;
+				border: none;
+				margin: 10px;
+			}
+
+			.message {
+				background-color: bisque;
+				margin-top: 10px;
+				box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+			}
+
+			.message-box {
+				background-color: white;
+				margin: 10px;
+				box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+			}
+		</style>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
+
+		<script th:src="@{/JS/app.js}"></script> 
+
+	</section>
+
+</body>
+
+</html>

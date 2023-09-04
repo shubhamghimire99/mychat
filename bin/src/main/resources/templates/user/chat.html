@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeLeaf.org" th:replace="base::Layout(~{::section})">
+
+<head>
+    <meta charset="UTF-8" />
+    
+</head>
+
+<body>
+    <section>
+        <div class="container-fluid h-100">
+            <div class="row justify-content-center h-100">
+                <div class="col-md-4 col-xl-3 chat">
+                    <div class="card mb-sm-3 mb-md-0 contacts_card">
+                        <div class="card-header">
+                            <div class="input-group">
+                                <input type="text" placeholder="Search..." name="" class="form-control search">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text search_btn"><i class="fas fa-search"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body contacts_body">
+                            <ul class="contacts">
+                                <li th:each="otherUser : ${allUsers}">
+                                    <div class="d-flex bd-highlight">
+                                        <div class="img_cont">
+                                            <img th:src="@{/IMG/profile.jpg}" class="rounded-circle user_img">
+                                            <span class="online_icon"></span>
+                                        </div>
+                                        <div class="user_info">
+                                            <span th:text="${otherUser.firstname + ' ' + otherUser.lastname}"></span>
+                                            <!-- You can add more information about the user if needed -->
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-footer"></div>
+                    </div>
+                </div>
+                <div class="col-md-8 col-xl-6 chat">
+                    <div class="card">
+                        <div class="card-header msg_head">
+                            <div class="d-flex bd-highlight">
+                                <emoji-picker class="emoji"></emoji-picker>
+                                <div class="img_cont">
+                                    <img src="../IMG/profile.jpg" class="rounded-circle user_img">
+                                    <span class="online_icon"></span>
+                                </div>
+                                <div class="user_info">
+                                    <span>Chat with <span th:text="${user.uname}"></span></span>
+                                    <p>1767 Messages</p>
+                                </div>
+
+                            </div>
+                            <span id="action_menu_btn"><i class="fas fa-ellipsis-v"></i></span>
+                            <div class="action_menu">
+                                <ul>
+                                    <li><i class="fas fa-user-circle"></i> View profile</li>
+                                    <li><i class="fas fa-users"></i> Add to close friends</li>
+                                    <li><i class="fas fa-plus"></i> Add to group</li>
+                                    <li><i class="fas fa-ban"></i> Block</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body msg_card_body" id="chat">
+                            <div th:each="message : ${userMessages}" id="messageArea">
+                                <!-- Check if the sender is the user -->
+                                <div th:if="${message.sender == user.firstname}"
+                                    class="d-flex justify-content-end mb-4">
+                                    <div class="msg_cotainer_send">
+                                        <p th:text="${message.message}"></p>
+                                        <span class="msg_time_send" th:text="${message.sender}"></span>
+                                    </div>
+                                    <div class="img_cont_msg">
+                                        <img src="../IMG/profile.jpg" class="rounded-circle user_img_msg">
+                                    </div>
+                                </div>
+
+                                <!-- If the sender is not the user -->
+                                <div th:unless="${message.sender == user.firstname}"
+                                    class="d-flex justify-content-start mb-4" id="messageArea">
+                                    <div class="img_cont_msg">
+                                        <img src="../IMG/profile.jpg" class="rounded-circle user_img_msg">
+                                    </div>
+                                    <div class="msg_cotainer">
+                                        <p th:text="${message.message}"></p>
+                                        <span class="msg_time" th:text="${message.sender}"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="card-footer">
+                            <form th:action="@{/sendChat}" method="post" class="input-group" id="chat-form">
+                               
+                                <input type="text" name="message" id="message" placeholder="Type a message..."
+                                    autocomplete="off" required class="form-control type_msg" />
+                                
+                                <i class="fa-regular fa-face-smile emoji" onclick="toggleEmote()"></i>
+                                
+                                <button type="submit" class="input-group-append bg-primary">
+                                    <i class="fas fa-location-arrow send_btn white "></i>
+                                </button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script th:inline="javascript">
+            var user = [[${ user }]];
+        </script>
+
+        <script th:src="@{/JS/chat.js}"></script>
+    </section>
+
+
+</body>
+
+</html>
