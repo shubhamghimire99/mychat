@@ -13,6 +13,8 @@ function scrollToBottom() {
 
 // Scroll to the bottom when the page is loaded or reloaded
 window.addEventListener('load', scrollToBottom);
+
+
 // using jQuery to print a message when the document is ready
 var socket = new WebSocket("ws://" + window.location.host + "/chat");
 
@@ -26,7 +28,7 @@ socket.onmessage = function (event) {
     messageElement.className = "d-flex justify-content-start mb-4";
 
     messageElement.innerHTML = "<div class=\"img_cont_msg\">" +
-        "<img src=\"../IMG/profile.png\" class=\"rounded-circle user_img_msg\">" +
+        "<img th:src=\"${message.imageUrl}\" class=\"rounded-circle user_img_msg\">" +
         "</div>" +
         "<div class=\"msg_cotainer\">"+"<p>"+ message.message+"</p>" +
         "<span class=\"msg_time\">" + message.sender + "</span>"

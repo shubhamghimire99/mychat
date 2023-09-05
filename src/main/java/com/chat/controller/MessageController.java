@@ -45,7 +45,8 @@ public class MessageController {
         // Find the user by email
         User loggedInUser = this.userRepository.getUserByUserName(loggedInUserEmail);
         
-        message.setSender(loggedInUser.getFirstname());
+        message.setSender(loggedInUser.getEmail());
+        message.setImageUrl(loggedInUser.getFirstname()+"_"+loggedInUser.getLastname()+"_"+loggedInUser.getId());
         message.setTimestamp(java.time.LocalDateTime.now());
         
         Messages result = this.messageRepository.save(message);
@@ -87,7 +88,8 @@ public class MessageController {
         // Find the user by email
         User loggedInUser = this.userRepository.getUserByUserName(loggedInUserEmail);
         
-        message.setSender(loggedInUser.getFirstname());
+        message.setSender(loggedInUser.getEmail());
+        message.setImageUrl(loggedInUser.getImageUrl());
         message.setTimestamp(java.time.LocalDateTime.now());
         
         Messages result = this.messageRepository.save(message);

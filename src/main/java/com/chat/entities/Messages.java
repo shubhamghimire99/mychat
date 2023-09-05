@@ -18,45 +18,60 @@ public class Messages {
     private String message;
     
     private String sender;
+    
+    private String imageUrl;
 
     private LocalDateTime timestamp;
+    
+    
+    //Getters and setters
+	public int getId() {
+		return id;
+	}
 
-    public int getId() {
-        return id;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public String getMessage() {
-        return message;
-    }
+	public String getMessage() {
+		return message;
+	}
 
-    public String getSender() {
-        return sender;
-    }
+	public void setMessage(String message) {
+		this.message = message;
+	}
 
-    public LocalDateTime getTimestamp() {
-        return timestamp;
-    }
+	public String getSender() {
+		return sender;
+	}
+
+	public void setSender(String sender) {
+		this.sender = sender;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
+	public LocalDateTime getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(LocalDateTime timestamp) {
+		this.timestamp = timestamp;
+	}
+
+	@Override
+	public String toString() {
+		return "Messages [id=" + id + ", message=" + message + ", sender=" + sender + ", imageUrl=" + imageUrl
+				+ ", timestamp=" + timestamp + "]";
+	}
+    
+    
 
 
-    public void setMessage(String message) {
-        this.message= message;
-    }
-
-    public void setSender(String sender) {
-        this.sender = sender;
-    }
-
-    public void setTimestamp(LocalDateTime timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    @Override
-    public String toString() {
-        return "Message[" +
-                "id=" + id +
-                ", message='" + message +
-                ", sender='" + sender +
-                ", timestamp=" + timestamp +
-                ']';
-    }
 }

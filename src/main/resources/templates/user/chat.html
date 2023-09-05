@@ -14,10 +14,10 @@
                     <div class="card mb-sm-3 mb-md-0 contacts_card">
                         <div class="card-header">
                             <div class="input-group">
-                                <input type="text" placeholder="Search..." name="" class="form-control search">
+                                <!-- <input type="text" placeholder="Search..." name="" class="form-control search">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text search_btn"><i class="fas fa-search"></i></span>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <div class="card-body contacts_body">
@@ -54,7 +54,7 @@
                                 </div>
 
                             </div>
-                            <span id="action_menu_btn"><i class="fas fa-ellipsis-v"></i></span>
+                            <!-- <span id="action_menu_btn"><i class="fas fa-ellipsis-v"></i></span>
                             <div class="action_menu">
                                 <ul>
                                     <li><i class="fas fa-user-circle"></i> View profile</li>
@@ -62,12 +62,12 @@
                                     <li><i class="fas fa-plus"></i> Add to group</li>
                                     <li><i class="fas fa-ban"></i> Block</li>
                                 </ul>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="card-body msg_card_body" id="chat">
                             <div th:each="message : ${userMessages}" id="messageArea">
                                 <!-- Check if the sender is the user -->
-                                <div th:if="${message.sender == user.firstname}"
+                                <div th:if="${message.sender == user.email}"
                                     class="d-flex justify-content-end mb-4">
                                     <div class="msg_cotainer_send">
                                         <p th:text="${message.message}"></p>
@@ -79,10 +79,10 @@
                                 </div>
 
                                 <!-- If the sender is not the user -->
-                                <div th:unless="${message.sender == user.firstname}"
+                                <div th:unless="${message.sender == user.email}"
                                     class="d-flex justify-content-start mb-4" id="messageArea">
                                     <div class="img_cont_msg">
-                                        <img src="../IMG/profile.png" class="rounded-circle user_img_msg">
+                                        <img th:src="${message.imageUrl}" class="rounded-circle user_img_msg">
                                     </div>
                                     <div class="msg_cotainer">
                                         <p th:text="${message.message}"></p>
