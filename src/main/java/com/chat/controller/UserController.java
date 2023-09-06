@@ -8,7 +8,10 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.GroupLayout.Group;
+
 import com.chat.dao.FriendRepository;
+import com.chat.dao.GroupMemberRepository;
 import com.chat.entities.Friend;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,18 +35,22 @@ public class UserController {
 
 	@Autowired
 	private UserRepository userRepository;
-
+	
 	@Autowired
 	private MessageRepository messageRepository;
+	
+	@Autowired
+	private GroupMemberRepository groupMemberRepository;
+	
+	@Autowired
+	private FriendRepository friendRepogetory;
 
 	@RequestMapping("/profile")
 	public String UserPofile(Model model, Principal principal) {
 		model.addAttribute("title", "User Profile");
 		String username = principal.getName();
-		System.out.println("Username " + username);
 		// the user using username
 		User user = userRepository.getUserByUserName(username);
-		System.out.println("User " + user);
 
 		model.addAttribute("user", user);
 
@@ -51,7 +58,8 @@ public class UserController {
 	}
 
 	@RequestMapping("/chat")
-	public String chat(Model model, Principal principal, @RequestParam( value = "userId", required = false, defaultValue = "0") int userId) {
+	public String chat(Model model, Principal principal,
+			@RequestParam(value = "userId", required = false, defaultValue = "0") int userId) {
 		model.addAttribute("title", "Chats");
 		String username = principal.getName();
 		User user = userRepository.getUserByUserName(username);
@@ -59,16 +67,20 @@ public class UserController {
 
 		// Fetch all users except the logged-in user
 		List<User> allUsers = userRepository.findAll();
-		allUsers.remove(user); // Remove the logged-in user from the list
+		allUsers.remove(user);
 
-		int uid = userId;
+		// fetch user from database using userId
+		if (userId != 0) {
+			User sender = userRepository.findById(userId);
+			model.addAttribute("sender", sender);
+		}
 
 		model.addAttribute("user", user);
 		model.addAttribute("allUsers", allUsers);
 		model.addAttribute("userMessages", userMessages);
 
 		// send userID to chat.html
-		model.addAttribute("userId", uid);
+		model.addAttribute("userId", userId);
 
 		return "user/chat";
 	}
@@ -82,8 +94,6 @@ public class UserController {
 		return "/user/groupchat";
 	}
 
-	@Autowired
-	private FriendRepository friendRepogetory;
 
 	@RequestMapping("/notification")
 	public String notification(Model model, Principal principal) {
@@ -101,7 +111,7 @@ public class UserController {
 		List<User> requestUsers = new ArrayList<>();
 		friendRepogetory.getFriendRequest(user.getId());
 		List<Friend> requestList = friendRepogetory.getFriendRequest(user.getId());
-		for (Friend f: requestList){
+		for (Friend f : requestList) {
 			requestUsers.add(userRepository.getReferenceById(f.getSender()));
 		}
 		model.addAttribute("requests", requestUsers);
@@ -166,9 +176,10 @@ public class UserController {
 
 				// Specify the path where you want to save the image (e.g., a directory on your
 				// server)
-				String imagePath = "C:\\Users\\shubh\\Documents\\workspace-spring-tool-suite-4-4.19.1.RELEASE\\mychats\\src\\main\\resources\\static\\IMG\\" + filename;
+				String imagePath = "C:\\Users\\shubh\\Documents\\workspace-spring-tool-suite-4-4.19.1.RELEASE\\mychats\\src\\main\\resources\\static\\IMG\\"
+						+ filename;
 
-				String imgPath = "/IMG/"+filename;
+				String imgPath = "/IMG/" + filename;
 
 				// Save the uploaded profile picture to the specified path
 				try {
