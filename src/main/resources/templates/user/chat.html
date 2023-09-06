@@ -18,7 +18,7 @@
                         </div>
                         <div class="card-body contacts_body">
                             <ul class="contacts">
-                                <li th:each="otherUser : ${allUsers}">
+                                <li th:each="otherUser : ${friends}">
                                     <a th:href="@{/user/chat(userId=${otherUser.id})}">
                                         <div class="d-flex bd-highlight">
                                             <div class="img_cont">

@@ -54,4 +54,9 @@ public class Friend {
     public void setId(Integer id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+    	return "Friend [receiver=" + receiver + ", sender=" + sender + ", status=" + status + ", id=" + id + "]";
+    }
 }

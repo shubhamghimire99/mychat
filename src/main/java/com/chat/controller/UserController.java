@@ -58,14 +58,27 @@ public class UserController {
 	@RequestMapping("/chat")
 	public String chat(Model model, Principal principal,
 			@RequestParam(value = "userId", required = false, defaultValue = "0") int userId) {
+
 		model.addAttribute("title", "Chats");
 		String username = principal.getName();
 		User user = userRepository.getUserByUserName(username);
+
 		List<Messages> userMessages = messageRepository.findAll();
 
-		// Fetch all users except the logged-in user
-		List<User> allUsers = userRepository.findAll();
-		allUsers.remove(user);
+		List<Friend> friend = friendRepogetory.getFriends(user.getId());
+		
+		List<User> friends = new ArrayList<>();
+		// adding users to friends list if their id are present in friend
+		for (Friend f : friend) {
+			if (f.getReceiver() == user.getId()) {
+				friends.add(userRepository.getReferenceById(f.getSender()));
+			} else {
+				friends.add(userRepository.getReferenceById(f.getReceiver()));
+			}
+		}
+
+		model.addAttribute("friends", friends);
+
 
 		// fetch user from database using userId
 		if (userId != 0) {
@@ -74,7 +87,6 @@ public class UserController {
 		}
 
 		model.addAttribute("user", user);
-		model.addAttribute("allUsers", allUsers);
 		model.addAttribute("userMessages", userMessages);
 
 		// send userID to chat.html
