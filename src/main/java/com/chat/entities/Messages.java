@@ -1,6 +1,7 @@
 package com.chat.entities;
 
 import java.time.LocalDateTime;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -20,6 +21,8 @@ public class Messages {
     private String sender;
     
     private String imageUrl;
+	
+	private int room_id;
 
     private LocalDateTime timestamp;
     
@@ -65,10 +68,18 @@ public class Messages {
 		this.timestamp = timestamp;
 	}
 
+	public int getRoom_id() {
+		return room_id;
+	}
+
+	public void setRoom_id(int room_id) {
+		this.room_id = room_id;
+	}
+
 	@Override
 	public String toString() {
 		return "Messages [id=" + id + ", message=" + message + ", sender=" + sender + ", imageUrl=" + imageUrl
-				+ ", timestamp=" + timestamp + "]";
+				+ ", timestamp=" + timestamp + ", room_id=" + room_id +"]";
 	}
     
     

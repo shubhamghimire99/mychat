@@ -10,6 +10,12 @@ function scrollToBottom() {
     scrollableArea.scrollTop = scrollableArea.scrollHeight;
 }
 
+console.log(userId)
+
+if (userId == 0) {
+    document.getElementById("messagebox").style.display = "none";
+}
+
 // Scroll to the bottom when the page is loaded or reloaded
 window.addEventListener('load', scrollToBottom);
 
