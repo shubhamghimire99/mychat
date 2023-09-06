@@ -27,6 +27,8 @@ import com.chat.dao.UserRepository;
 import com.chat.entities.Messages;
 import com.chat.entities.User;
 
+import jakarta.validation.Valid;
+
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -160,7 +162,7 @@ public class UserController {
 	}
 
 	@PostMapping("/update_profile")
-	public String handleProfileUpdate(
+	public String handleProfileUpdate( 
 			@ModelAttribute User userForm, // Bind form data to the User object
 			@RequestParam("profile") MultipartFile file,
 			Model model, Principal principal) {

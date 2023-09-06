@@ -6,9 +6,11 @@
 //         <h2>${element.name}</h2>
 
 
-function scrollToBottom() {
-    var scrollableArea = document.getElementById('chat');
-    scrollableArea.scrollTop = scrollableArea.scrollHeight;
-}
+const friendbutton = document.querySelector(".send-friend-request")
+
+friendbutton.addEventListener('click', ()=>{
+    friendbutton.textContent = "Friend Request Sent";
+    friendbutton.ariaDisabled= true;
+});
 
 

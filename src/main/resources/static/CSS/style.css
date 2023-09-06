@@ -828,19 +828,6 @@ html {
 }
 
 
-@media(max-width: 767px) {
-    .contacts_card {
-        /* margin-bottom: 15px !important;  */
-        display: none;
-    }
-
-    .card {
-        margin-left: 0;
-        width: auto;
-    }
-
-}
-
 @media(max-width: 576px) {
     .contacts_card {
         /* margin-bottom: 15px !important; */
@@ -873,4 +860,106 @@ html {
 .hide{
     display: none;
 }
+/* Friend request buttons */
+.send-friend-request{
+    margin-left: 10px;
+    margin-bottom: 10px;
+    background-color: #13aa52;
+    border: 1px solid #13aa52;
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, .1) 0 2px 4px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    font-family: "Akzidenz Grotesk BQ Medium", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    outline: none;
+    outline: 0;
+    padding: 10px 25px;
+    text-align: center;
+    transform: translateY(0);
+    transition: transform 150ms, box-shadow 150ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+.send-friend-request:hover{
+    box-shadow: rgba(0, 0, 0, .15) 0 3px 9px 0;
+    transform: translateY(-2px);
+}
+.delete-friend-request{
+    margin-left: 10px;
+    margin-bottom: 10px;
+    background-color:  #e62143;
+    border: 1px solid  #e62143;
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, .1) 0 2px 4px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    font-family: "Akzidenz Grotesk BQ Medium", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    outline: none;
+    outline: 0;
+    padding: 10px 25px;
+    text-align: center;
+    transform: translateY(0);
+    transition: transform 150ms, box-shadow 150ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+.delete-friend-request:hover{
+    box-shadow: rgba(0, 0, 0, .15) 0 3px 9px 0;
+    transform: translateY(-2px);
+}
 
+
+
+/* for friend page */
+.friend-card {
+    height: 90vh;
+    border-radius: 15px !important;
+    background-color: rgba(0, 0, 0, 0.4) !important;
+}
+.friends {
+    list-style: none;
+    padding: 0;
+}
+
+.friends li {
+    width: 100% !important;
+    padding: 5px 10px;
+    margin-bottom: 15px !important;
+}
+.friend-list{
+    display: flex;
+    justify-content:flex-start;
+    
+}
+
+
+/* For Friend request page */
+.friendrequest-card {
+    height: 90vh;
+    border-radius: 15px !important;
+    background-color: rgba(0, 0, 0, 0.4) !important;
+}
+.friendrequest {
+    position: absolute;
+    list-style: none;
+    padding: 0;
+}
+
+.friendrequest li {
+    width: 100% !important;
+    padding: 5px 10px;
+    margin-bottom: 15px !important;
+}
+.friendrequest-list{
+    display: flex;
+    justify-content:flex-start;
+    
+}
