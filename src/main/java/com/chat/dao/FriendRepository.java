@@ -14,4 +14,6 @@ public interface FriendRepository extends JpaRepository<Friend,Integer> {
     @Query("select f from Friend f where f.receiver = :receiver and f.sender = :sender")
     public Friend getRequestBySenderAndReceiverID(@Param("sender")Integer sender,@Param("receiver")Integer receiver);
 
+    // @Query("select f from Friend F where f.status = 'ACCEPTED'")
+    // public List<Friend> getFriends();
 }

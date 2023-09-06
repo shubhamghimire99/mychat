@@ -28,7 +28,7 @@ public class FriendController {
         friend.setStatus("PENDING");
         friendRepository.save(friend);
         System.out.println(id);
-        return "redirect:/user/friends";
+        return "redirect:/user/friends"; 
     }
     
     @PostMapping("/acceptRequest")
