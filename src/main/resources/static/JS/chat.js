@@ -1,4 +1,3 @@
-
 //for : button
 $(document).ready(function () {
 	$('#action_menu_btn').click(function () {
@@ -16,7 +15,7 @@ window.addEventListener('load', scrollToBottom);
 
 
 // using jQuery to print a message when the document is ready
-var socket = new WebSocket("ws://" + window.location.host + "/chat");
+var socket = new WebSocket("wss://" + window.location.host + "/chat");
 
 socket.onmessage = function (event) {
 
@@ -39,6 +38,7 @@ socket.onmessage = function (event) {
 
     console.log("Received message: " + event.data);
 };
+
 //For Emojies
 const message=document.getElementById("message");
 const pickerOptions = { 
@@ -47,6 +47,7 @@ const pickerOptions = {
 
     }
 };   
+
 const picker = new EmojiMart.Picker(pickerOptions);
 picker.classList.toggle("hide");
 picker.classList.add("picker");
