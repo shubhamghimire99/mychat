@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 public class ChatController {
 
     @MessageMapping("/groupchat")
-    @SendTo("/topic/public")
+    @SendTo("/topic/chat")
     public ChatMessage register(@Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
         headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
         return chatMessage;

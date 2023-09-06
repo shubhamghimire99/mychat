@@ -49,23 +49,24 @@ public class UserController {
 	}
 
 	@RequestMapping("/chat")
-	public String chat(Model model, Principal principal) {
+	public String chat(Model model, Principal principal, @RequestParam( value = "userId", required = false, defaultValue = "0") int userId) {
 		model.addAttribute("title", "Chats");
 		String username = principal.getName();
 		User user = userRepository.getUserByUserName(username);
+		List<Messages> userMessages = messageRepository.findAll();
 
 		// Fetch all users except the logged-in user
 		List<User> allUsers = userRepository.findAll();
 		allUsers.remove(user); // Remove the logged-in user from the list
 
+		int uid = userId;
+
 		model.addAttribute("user", user);
 		model.addAttribute("allUsers", allUsers);
-
-		// Assuming your MessageRepository has a method to fetch messages by sender
-		List<Messages> userMessages = messageRepository.findAll();
-
-		model.addAttribute("user", user);
 		model.addAttribute("userMessages", userMessages);
+
+		// send userID to chat.html
+		model.addAttribute("userId", uid);
 
 		return "user/chat";
 	}
@@ -84,6 +85,7 @@ public class UserController {
 
 	@RequestMapping("/notification")
 	public String notification(Model model, Principal principal) {
+
 		model.addAttribute("title", "Notification");
 		String username = principal.getName();
 		User user = userRepository.getUserByUserName(username);
@@ -92,26 +94,7 @@ public class UserController {
 		List<Messages> userMessages = messageRepository.findAll();
 
 		model.addAttribute("user", user);
-		model.addAttribute("userMessages", userMessages); // Pass the messages to the template
-
-		return "user/notification"; // Remove the leading slash
-	}
-
-	@RequestMapping("/cheat")
-	public String chatPage(Model model, Principal principal) {
-
-		model.addAttribute("title", "Chat");
-		String username = principal.getName();
-		User user = userRepository.getUserByUserName(username);
-
-		// Assuming your MessageRepository has a method to fetch messages by sender
-		List<Messages> userMessages = messageRepository.findAll();
-
-		model.addAttribute("user", user);
-		model.addAttribute("userMessages", userMessages); // Pass the messages to the template
-
-		List<User> users =new ArrayList<>();
-
+		model.addAttribute("userMessages", userMessages);
 
 		List<User> requestUsers = new ArrayList<>();
 		friendRepogetory.getFriendRequest(user.getId());
@@ -120,7 +103,6 @@ public class UserController {
 			requestUsers.add(userRepository.getReferenceById(f.getSender()));
 		}
 		model.addAttribute("requests", requestUsers);
-
 
 		return "user/notification"; // Remove the leading slash
 	}
