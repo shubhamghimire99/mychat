@@ -14,6 +14,40 @@
                     <div class="card mb-sm-3 mb-md-0 contacts-card">
                         <div class="card-body contacts_body">
                             <ul class="friends">
+                                <h1 class="text-center headingfriends">Friends</h1>    
+                                <li th:each="otherUser : ${friends}">
+                                    <a th:href="@{/user/chat(userId=${otherUser.id})}">
+                                        <div class="friend-list">
+                                            <div class="img_cont">
+                                                <img th:src="${otherUser.imageUrl}" class="rounded-circle user_img">
+                                                <span class="online_icon"></span>
+                                            </div>
+                                            <div class="user_info">
+                                                <span
+                                                    th:text="${otherUser.firstname + ' ' + otherUser.lastname}"></span>
+                                                <!-- You can add more information about the user if needed -->
+                                            </div>
+                                            <div class="align-self-center frnd_btn">
+                                                <button type="submit" disabled class="input-group-append friend">
+                                                    You Are Friends!
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>    
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid h-100">
+            <div class="row justify-content-center h-100">
+                <div class="col-md-4 col-xl-6 chat">
+                    <div class="card mb-sm-3 mb-md-0 contacts-card">
+                        <div class="card-body contacts_body">
+                            <ul class="friends">
+                                <h1 class="text-center headingfriends">Sent Friend Request</h1>
                                 <li th:each="otherUser : ${allUsers}">
                                     <div class="friend-list">
                                         <div class="img_cont">
@@ -27,16 +61,17 @@
                                         <div class="align-self-center frnd_btn">
                                             <form th:action="@{/send_request}" method="post">
                                                 <input hidden name="reciver" th:value="${otherUser.id}">
-                                                
+
                                                 <div class="dflex">
-                                                    <button type="submit"
-                                                        class="input-group-append send-friend-request" >
+                                                   
+                                                    <button type="submit" 
+                                                        class="input-group-append send-friend-request">
                                                         Send friend request
                                                     </button>
-                                                    <button type="submit"
+                                                    <!-- <button type="submit"
                                                         class="input-group-append delete-friend-request" id="delete-friend-request">
                                                         Ignore
-                                                    </button> 
+                                                    </button>  -->
                                                 </div>
                                             </form>
                                         </div>
@@ -48,7 +83,13 @@
                 </div>
             </div>
         </div>
-        
+        <script th:inline="javascript">
+            var user = [[${ user }]];
+
+            // sending userId to chat.js
+            var userId = [[${ userId }]];
+        </script>
+
         <script th:src="@{/JS/friend.js}"></script>
 
     </section>

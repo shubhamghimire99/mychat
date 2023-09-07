@@ -8,6 +8,9 @@ import com.chat.entities.Friend;
 import com.chat.entities.GroupMembers;
 import com.chat.entities.Room;
 import com.chat.entities.User;
+
+import jakarta.validation.constraints.Null;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,6 +36,11 @@ public class FriendController {
     public String sendRequest(@RequestParam("reciver") Integer id, Principal principal){
         User receiver =userRepository.getReferenceById(id);
         User sender = userRepository.getUserByUserName(principal.getName());
+        Friend checkrequest =friendRepository.checkRequest(sender.getId(),receiver.getId());
+        if(checkrequest!=null)
+        	  return "redirect:/user/friends";
+            
+        else{
         Friend friend = new Friend();
         friend.setReceiver(id);
         friend.setSender(sender.getId());
@@ -40,6 +48,7 @@ public class FriendController {
         friendRepository.save(friend);
         System.out.println(id);
         return "redirect:/user/friends"; 
+        }
     }
     
     @PostMapping("/acceptRequest")

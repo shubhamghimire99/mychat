@@ -35,13 +35,13 @@ public class UserController {
 
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Autowired
 	private MessageRepository messageRepository;
-	
+
 	@Autowired
 	private GroupMemberRepository groupMemberRepository;
-	
+
 	@Autowired
 	private FriendRepository friendRepogetory;
 
@@ -68,7 +68,7 @@ public class UserController {
 		List<Messages> userMessages = messageRepository.findAll();
 
 		List<Friend> friend = friendRepogetory.getFriends(user.getId());
-		
+
 		List<User> friends = new ArrayList<>();
 		// adding users to friends list if their id are present in friend
 		for (Friend f : friend) {
@@ -80,7 +80,6 @@ public class UserController {
 		}
 
 		model.addAttribute("friends", friends);
-
 
 		// fetch user from database using userId
 		if (userId != 0) {
@@ -105,7 +104,6 @@ public class UserController {
 		model.addAttribute("user", user);
 		return "/user/groupchat";
 	}
-
 
 	@RequestMapping("/notification")
 	public String notification(Model model, Principal principal) {
@@ -136,10 +134,33 @@ public class UserController {
 		model.addAttribute("title", "Friend Request");
 		String username = principal.getName();
 		User user = userRepository.getUserByUserName(username);
+		// fetch all users except the friends
+		
 
 		// Fetch all users except the logged-in user
 		List<User> allUsers = userRepository.findAll();
 		allUsers.remove(user); // Remove the logged-in user from the list
+		
+		List<Friend> friend = friendRepogetory.getFriends(user.getId());
+		List<User> friends = new ArrayList<>();
+		
+
+		// adding users to friends list if their id are present in friend
+		for (Friend f : friend) {
+			if (f.getReceiver() == user.getId()) {
+				friends.add(userRepository.getReferenceById(f.getSender()));
+			} else {
+				friends.add(userRepository.getReferenceById(f.getReceiver()));
+			}
+		}
+
+		model.addAttribute("friends", friends);
+
+		// // fetch user from database using userId
+		// if (userId != 0) {
+		// User sender = userRepository.findById(userId);
+		// model.addAttribute("sender", sender);
+		// }
 
 		model.addAttribute("user", user);
 		model.addAttribute("allUsers", allUsers);
@@ -162,7 +183,7 @@ public class UserController {
 	}
 
 	@PostMapping("/update_profile")
-	public String handleProfileUpdate( 
+	public String handleProfileUpdate(
 			@ModelAttribute User userForm, // Bind form data to the User object
 			@RequestParam("profile") MultipartFile file,
 			Model model, Principal principal) {
