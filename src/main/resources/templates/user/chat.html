@@ -87,7 +87,7 @@
                         </div>
 
                         <div class="card-footer">
-                            <form th:action="@{/sendChat}" method="post" class="input-group" id="chat-form">
+                            <form th:action="@{/sendChat(receiver=${userId})}" method="post" class="input-group" id="chat-form">
 
                                 <input type="text" name="message" id="message" placeholder="Type a message..."
                                     autocomplete="off" required class="form-control type_msg" />

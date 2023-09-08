@@ -7,43 +7,6 @@
 
 <body>
     <section>
-
-        <div class="container-fluid h-100">
-            <div class="row justify-content-center h-100">
-                <div class="col-md-4 col-xl-6 chat">
-                    <div class="card mb-sm-3 mb-md-0 contacts-card">
-                        <div class="card-body contacts_body">
-                            <ul class="friends">
-                                <h1 class="text-center headingfriends">Friends</h1>  
-                                <li th:if="${friends.empty}">
-									you have No Friends
-								</li>  
-                                <h1 class="text-center headingfriends">Sent Friend Requests</h1>
-                                <li th:each="otherUser : ${friends}">
-                                    <a th:href="@{/user/chat(userId=${otherUser.id})}">
-                                        <div class="friend-list">
-                                            <div class="img_cont">
-                                                <img th:src="${otherUser.imageUrl}" class="rounded-circle user_img">
-                                                <span class="online_icon"></span> 
-                                            </div>
-                                            <div class="user_info">
-                                                <span
-                                                    th:text="${otherUser.firstname + ' ' + otherUser.lastname}"></span>
-                                            </div>
-                                            <div class="align-self-center frnd_btn">
-                                                <button type="submit" disabled class="input-group-append friend">
-                                                    You Are Friends!
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>    
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="container-fluid h-100">
             <div class="row justify-content-center h-100">
                 <div class="col-md-4 col-xl-6 chat">

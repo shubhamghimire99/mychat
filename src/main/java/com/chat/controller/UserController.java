@@ -65,10 +65,9 @@ public class UserController {
 		String username = principal.getName();
 		User user = userRepository.getUserByUserName(username);
 
-		List<Messages> userMessages = messageRepository.findAll();
-
+		
 		List<Friend> friend = friendRepogetory.getFriends(user.getId());
-
+		
 		List<User> friends = new ArrayList<>();
 		// adding users to friends list if their id are present in friend
 		for (Friend f : friend) {
@@ -78,13 +77,17 @@ public class UserController {
 				friends.add(userRepository.getReferenceById(f.getReceiver()));
 			}
 		}
-
+		
 		model.addAttribute("friends", friends);
-
+		
+		List<Messages> userMessages = null;
 		// fetch user from database using userId
 		if (userId != 0) {
 			User sender = userRepository.findById(userId);
 			model.addAttribute("sender", sender);
+			int room_id = groupMemberRepository.getRoomId(user.getId(), userId);
+			System.out.println("room_id: " + room_id);
+			userMessages = messageRepository.findByRoomId(room_id);
 		}
 
 		model.addAttribute("user", user);
@@ -135,7 +138,6 @@ public class UserController {
 		String username = principal.getName();
 		User user = userRepository.getUserByUserName(username);
 		// fetch all users except the friends
-		
 
 		// Fetch all users except the logged-in user
 		List<User> allUsers = userRepository.findAll();
@@ -143,10 +145,8 @@ public class UserController {
 
 		List<Friend> friend = friendRepogetory.getFriends(user.getId());
 
-
 		List<User> friends = new ArrayList<>();
-		
-		
+
 		// adding users to friends list if their id are present in friend
 		for (Friend f : friend) {
 			if (f.getReceiver() == user.getId()) {

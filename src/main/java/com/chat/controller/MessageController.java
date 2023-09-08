@@ -3,10 +3,14 @@ package com.chat.controller;
 import com.chat.entities.Messages;
 import com.chat.entities.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.chat.dao.GroupMemberRepository;
 import com.chat.dao.MessageRepository;
 import com.chat.dao.UserRepository;
 
 import java.io.IOException;
+import java.security.Principal;
+
+import javax.swing.GroupLayout.Group;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -29,54 +33,16 @@ public class MessageController {
     @Autowired
     private ObjectMapper objectMapper;
 
-    // @PostMapping("/send")
-    // public String sendMessage(@ModelAttribute Messages message,
-    //                           BindingResult result1,
-    //                           Model model,
-    //                           Authentication authentication) {
-        
-    //     if (result1.hasErrors()) {
-    //         model.addAttribute("message", message);
-    //         return "chat";
-    //     }
-
-    //     String loggedInUserEmail = authentication.getName();
-            
-    //     // Find the user by email
-    //     User loggedInUser = this.userRepository.getUserByUserName(loggedInUserEmail);
-        
-    //     message.setSender(loggedInUser.getEmail());
-    //     message.setImageUrl(loggedInUser.getFirstname()+"_"+loggedInUser.getLastname()+"_"+loggedInUser.getId());
-    //     message.setTimestamp(java.time.LocalDateTime.now());
-        
-    //     Messages result = this.messageRepository.save(message);
-
-    //     String messageJson;
-    //     try{
-    //         messageJson = objectMapper.writeValueAsString(result);
-    //     } catch(Exception e) {
-    //         messageJson = "{'error': 'JSON serialization error'}";
-    //     }
-        
-    //     // Broadcast the message to all connected users
-    //     for (WebSocketSession session : ChatWebSocketHandler.sessions) {
-    //         if (session.isOpen()) {
-    //             try {
-    //                 session.sendMessage(new TextMessage(messageJson));
-    //             } catch (IOException e) {
-    //                 e.printStackTrace();
-    //             }
-    //         }
-    //     }
-        
-    //     return "redirect:/user/notification";
-    // }
+    @Autowired
+    private GroupMemberRepository groupMemberRepository;
 
     @PostMapping("/sendChat")
     public String sendChat(@ModelAttribute Messages message,
                               BindingResult result1,
                               Model model,
-                              Authentication authentication) {
+                              Authentication authentication,
+                              Principal principal,
+                              @RequestParam("receiver") int receiver) {
         
         if (result1.hasErrors()) {
             model.addAttribute("message", message);
@@ -88,8 +54,13 @@ public class MessageController {
         // Find the user by email
         User loggedInUser = this.userRepository.getUserByUserName(loggedInUserEmail);
         
+        // get room_id from group_members table using 2 user_ids
+        int room_id = groupMemberRepository.getRoomId(loggedInUser.getId(), receiver);
+        System.out.println("room_id: " + room_id);
+
         message.setSender(loggedInUser.getEmail());
         message.setImageUrl(loggedInUser.getImageUrl());
+        message.setRoom_id(room_id);
         message.setTimestamp(java.time.LocalDateTime.now());
         
         Messages result = this.messageRepository.save(message);
@@ -111,6 +82,6 @@ public class MessageController {
                 }
             }
         }
-        return "redirect:/user/chat";
+        return "redirect:/user/chat?userId=" + receiver;
     }
 }
