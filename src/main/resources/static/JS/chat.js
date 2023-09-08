@@ -1,8 +1,8 @@
 //for : button
 $(document).ready(function () {
-	$('#action_menu_btn').click(function () {
-		$('.action_menu').toggle();
-	});
+    $('#action_menu_btn').click(function () {
+        $('.action_menu').toggle();
+    });
 });
 
 function scrollToBottom() {
@@ -15,7 +15,7 @@ window.addEventListener('load', scrollToBottom);
 
 
 // using jQuery to print a message when the document is ready
-var socket = new WebSocket("ws://" + window.location.host + "/chat/(userid={userid})");
+var socket = new WebSocket("ws://" + window.location.host + "/chat");
 
 socket.onmessage = function (event) {
 
@@ -29,26 +29,26 @@ socket.onmessage = function (event) {
     messageElement.innerHTML = "<div class=\"img_cont_msg\">" +
         "<img th:src=\"${message.imageUrl}\" class=\"rounded-circle user_img_msg\">" +
         "</div>" +
-        "<div class=\"msg_cotainer\">"+"<p>"+ message.message+"</p>" +
+        "<div class=\"msg_cotainer\">" + "<p>" + message.message + "</p>" +
         "<span class=\"msg_time\">" + message.sender + "</span>"
         + "</div>";
 
     msgArea.appendChild(messageElement);
     $("#chat").append(msgArea);
 
-    
+
 
     console.log("Received message: " + event.data);
 };
 
 //For Emojies
-const message=document.getElementById("message");
-const pickerOptions = { 
-    onEmojiSelect: (e)=>{
-        message.value+=e.native
+const message = document.getElementById("message");
+const pickerOptions = {
+    onEmojiSelect: (e) => {
+        message.value += e.native
 
     }
-};   
+};
 
 const picker = new EmojiMart.Picker(pickerOptions);
 picker.classList.toggle("hide");
