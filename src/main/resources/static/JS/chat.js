@@ -15,7 +15,7 @@ window.addEventListener('load', scrollToBottom);
 
 
 // using jQuery to print a message when the document is ready
-var socket = new WebSocket("ws://" + window.location.host + "/chat");
+var socket = new WebSocket("ws://" + window.location.host + "/chat/{room_id}");
 
 socket.onmessage = function (event) {
 

@@ -135,11 +135,6 @@ public class UserController {
 		return "/user/CreateGroup";
 	}
 
-	
-
-
-	
-
 	@RequestMapping("/notification")
 	public String notification(Model model, Principal principal) {
 

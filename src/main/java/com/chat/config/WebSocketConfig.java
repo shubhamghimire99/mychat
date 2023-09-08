@@ -15,10 +15,10 @@ import com.chat.controller.ChatWebSocketHandler;
 @EnableWebSocket
 @EnableWebSocketMessageBroker
 public class WebSocketConfig implements WebSocketConfigurer,WebSocketMessageBrokerConfigurer {
-
+    //dynamic roomid
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(new ChatWebSocketHandler(), "/chat/");
+        registry.addHandler(new ChatWebSocketHandler(), "/chat/{room_id}");
     }
     
     @Override
