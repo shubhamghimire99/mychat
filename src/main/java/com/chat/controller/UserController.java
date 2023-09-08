@@ -132,7 +132,9 @@ public class UserController {
 		return "/user/CreateGroup";
 	}
 
-	// postmapping for creating group in roomropository
+	
+
+
 	
 
 	@RequestMapping("/notification")
