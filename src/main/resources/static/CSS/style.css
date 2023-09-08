@@ -507,90 +507,95 @@ body {
 .grey {
     color: #777 !important
 }
+
 /* FOr User profile edit */
 .container_update {
     margin-top: 80px;
-  }
+}
 
-  .form-control:focus {
+.form-control:focus {
     box-shadow: none;
     border-color: #BA68C8
-  }
+}
 
-  .profile-button {
+.profile-button {
     background: rgb(99, 39, 120);
     box-shadow: none;
     border: none
-  }
+}
 
-  .profile-button:hover {
+.profile-button:hover {
     background: #682773
-  }
+}
 
-  .profile-button:focus {
+.profile-button:focus {
     background: #682773;
     box-shadow: none
-  }
+}
 
-  .profile-button:active {
+.profile-button:active {
     background: #682773;
     box-shadow: none
-  }
+}
 
-  .back:hover {
+.back:hover {
     color: #682773;
     cursor: pointer
-  }
+}
 
-  .labels {
+.labels {
     font-size: 15px
-  }
+}
 
-  .add-experience:hover {
+.add-experience:hover {
     background: #BA68C8;
     color: #fff;
     cursor: pointer;
     border: solid 1px #BA68C8
-  }
+}
 
-  .radio {
+.radio {
     height: 15px;
-  }
+}
 
-  .td-label {
+.td-label {
     padding-left: 15px;
     padding-top: 5px;
-  }
+}
 
-  .image {
+.image {
     display: flex;
     align-items: center;
-  }
+}
 
 
 /*style for chat UI*/
 
 /* For webkit-based browsers (Chrome, Safari) */
 ::-webkit-scrollbar {
-    width: 0.5em; /* Adjust the width as needed */
+    width: 0.5em;
+    /* Adjust the width as needed */
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: transparent; /* Hide the thumb (dragging handle) */
+    background-color: transparent;
+    /* Hide the thumb (dragging handle) */
 }
 
 /* For Firefox */
 * {
-    scrollbar-width: thin; /* Adjust the width as needed */
+    scrollbar-width: thin;
+    /* Adjust the width as needed */
 }
 
 *::-webkit-scrollbar-thumb {
-    background-color: transparent; /* Hide the thumb (dragging handle) in Firefox */
+    background-color: transparent;
+    /* Hide the thumb (dragging handle) in Firefox */
 }
 
 body,
 html {
-   
+
     background: -webkit-linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
     background: linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
 }
@@ -742,9 +747,11 @@ html {
     font-size: 10px;
     color: rgba(255, 255, 255, 0.6);
 }
-.msg_cotainer p{
+
+.msg_cotainer p {
     margin: 7px 7px 7px 7px;
 }
+
 .msg_cotainer {
     margin-top: auto;
     margin-bottom: auto;
@@ -762,17 +769,18 @@ html {
     padding: auto;
     position: relative;
 }
-.msg_cotainer_send p{
+
+.msg_cotainer_send p {
     margin: 7px 7px 7px 7px;
 }
 
- .msg_time {
+.msg_time {
     position: absolute;
     left: 0;
     bottom: -15px;
     color: rgba(255, 255, 255, 0.5);
     font-size: 10px;
-} 
+}
 
 .msg_time_send {
     position: absolute;
@@ -827,50 +835,176 @@ html {
     background-color: rgba(0, 0, 0, 0.2);
 }
 
-
-@media(max-width: 767px) {
-    .contacts_card {
-        /* margin-bottom: 15px !important;  */
-        display: none;
-    }
-
-    .card {
-        margin-left: 0;
-        width: auto;
-    }
-
-}
-
-@media(max-width: 576px) {
-    .contacts_card {
-        /* margin-bottom: 15px !important; */
-        display: none;
-    }
-
-    .card {
-        width: auto;
-    }
-}
-
 /* For Emojies */
- .emoji {
+.emoji {
     width: 50px;
-    font-size: 30px ;
+    font-size: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
     color: white;
     background: none;
     position: relative;
-} 
-.picker{
-   position:absolute;
-   top: -450px;
-   right: 0;
-   margin-bottom: 50px;
-   
 }
-.hide{
+
+.picker {
+    position: absolute;
+    top: -450px;
+    right: 0;
+    margin-bottom: 50px;
+
+}
+
+.hide {
     display: none;
 }
 
+/* Friend request buttons */
+.send-friend-request {
+    margin-left: 10px;
+    margin-bottom: 10px;
+    background-color: #13aa52;
+    border: 1px solid #13aa52;
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, .1) 0 2px 4px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    font-family: "Akzidenz Grotesk BQ Medium", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    outline: none;
+    outline: 0;
+    padding: 10px 25px;
+    text-align: center;
+    transform: translateY(0);
+    transition: transform 150ms, box-shadow 150ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.send-friend-request:hover {
+    box-shadow: rgba(0, 0, 0, .15) 0 3px 9px 0;
+    transform: translateY(-2px);
+}
+
+.delete-friend-request {
+    margin-left: 10px;
+    margin-bottom: 10px;
+    background-color: #e62143;
+    border: 1px solid #e62143;
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, .1) 0 2px 4px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    font-family: "Akzidenz Grotesk BQ Medium", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    outline: none;
+    outline: 0;
+    padding: 10px 25px;
+    text-align: center;
+    transform: translateY(0);
+    transition: transform 150ms, box-shadow 150ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.delete-friend-request:hover {
+    box-shadow: rgba(0, 0, 0, .15) 0 3px 9px 0;
+    transform: translateY(-2px);
+}
+
+.friend {
+    margin-left: 10px;
+    margin-bottom: 10px;
+    background-color: gray;
+    border: 1px solid gray;
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, .1) 0 2px 4px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    font-family: "Akzidenz Grotesk BQ Medium", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    outline: none;
+    outline: 0;
+    padding: 10px 25px;
+    text-align: center;
+    transform: translateY(0);
+    transition: transform 150ms, box-shadow 150ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+a {
+    text-decoration: none;
+}
+
+.headingfriends {
+    width: auto;
+    background: #bdc3c7;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #2c3e50, #bdc3c7);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #2c3e50, #bdc3c7);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    border-radius: 10px;
+    
+}
+
+
+/* for friend page */
+.friend-card {
+    height: 90vh;
+    border-radius: 15px !important;
+    background-color: rgba(0, 0, 0, 0.4) !important;
+}
+
+.friends {
+    list-style: none;
+    padding: 0;
+}
+
+.friends li {
+    width: 100% !important;
+    padding: 5px 10px;
+    margin-bottom: 15px !important;
+}
+
+.friend-list {
+    display: flex;
+    justify-content: flex-start;
+
+}
+
+
+/* For Friend request page */
+.friendrequest-card {
+    height: 90vh;
+    border-radius: 15px !important;
+    background-color: rgba(0, 0, 0, 0.4) !important;
+}
+
+.friendrequest {
+    position: absolute;
+    list-style: none;
+    padding: 0;
+}
+
+.friendrequest li {
+    width: 100% !important;
+    padding: 5px 10px;
+    margin-bottom: 15px !important;
+}
+
+.friendrequest-list {
+    display: flex;
+    justify-content: flex-start;
+
+}

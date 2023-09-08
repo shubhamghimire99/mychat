@@ -69,7 +69,7 @@ public class MessageController {
             }
         }
         
-        return "redirect:/user/notification"; // Redirect back to the chat page
+        return "redirect:/user/notification";
     }
 
     @PostMapping("/sendChat")
@@ -80,7 +80,7 @@ public class MessageController {
         
         if (result1.hasErrors()) {
             model.addAttribute("message", message);
-            return "chat";
+            return "user/chat";
         }
 
         String loggedInUserEmail = authentication.getName();
@@ -112,6 +112,6 @@ public class MessageController {
             }
         }
         
-        return "redirect:/user/chat"; // Redirect back to the chat page
+        return "redirect:/user/chat";
     }
 }

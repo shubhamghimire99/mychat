@@ -18,7 +18,7 @@
                         </div>
                         <div class="card-body contacts_body">
                             <ul class="contacts">
-                                <li th:each="otherUser : ${allUsers}">
+                                <li th:each="otherUser : ${friends}">
                                     <a th:href="@{/user/chat(userId=${otherUser.id})}">
                                         <div class="d-flex bd-highlight">
                                             <div class="img_cont">
@@ -38,18 +38,17 @@
                         <div class="card-footer"></div>
                     </div>
                 </div>
-                <div class="col-md-8 col-xl-6 chat" id="messagebox">
+                <div class="col-md-8 col-xl-6 chat" th:if="${sender}">
                     <div class="card">
                         <div class="card-header msg_head">
                             <div class="d-flex bd-highlight">
                                 <emoji-picker class="emoji"></emoji-picker>
                                 <div class="img_cont">
-                                    <img th:src="${user.imageUrl}" class="rounded-circle user_img">
+                                    <img th:src="${sender.imageUrl}" class="rounded-circle user_img">
                                     <span class="online_icon"></span>
                                 </div>
                                 <div class="user_info">
-                                    <span><span th:text="${user.uname}"></span></span>
-                                    <p>1767 Messages</p>
+                                    <span><span th:text="${sender.uname}"></span></span>
                                 </div>
 
                             </div>
