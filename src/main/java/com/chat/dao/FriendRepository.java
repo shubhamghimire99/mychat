@@ -9,8 +9,8 @@ import java.util.List;
 
 public interface FriendRepository extends JpaRepository<Friend,Integer> {
 
-    @Query("SELECT f FROM Friend f WHERE (f.receiver = :id OR f.sender = :id) AND f.status = 'ACCEPTED'")
-    public List<Friend> getFriends(@Param("id") Integer id);    
+    @Query("SELECT f FROM Friend f WHERE (f.receiver = :id OR f.sender = :id) AND f.status = 'ACCEPTED' ")
+    public List<Friend> getFriends(@Param("id") Integer id);
     
     @Query("select f from Friend f where f.receiver = :receiver and f.sender = :sender")
     public Friend getRequestBySenderAndReceiverID(@Param("sender")Integer sender,@Param("receiver")Integer receiver);

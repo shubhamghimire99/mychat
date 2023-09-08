@@ -18,7 +18,12 @@
                         </div>
                         <div class="card-body contacts_body">
                             <ul class="contacts">
+                                <h1 class="text-center headingfriends">Friends</h1>  
+                                <li th:if="${friends.empty}">
+									you have No Friends! Make <a th:href="@{/user/friends}" class="text-uppercase font-weight-bold" style="color: #fff;">friends</a> To Start Chatting
+								</li>  
                                 <li th:each="otherUser : ${friends}">
+                                    
                                     <a th:href="@{/user/chat(userId=${otherUser.id})}">
                                         <div class="d-flex bd-highlight">
                                             <div class="img_cont">
@@ -48,7 +53,7 @@
                                     <span class="online_icon"></span>
                                 </div>
                                 <div class="user_info">
-                                    <span><span th:text="${sender.uname}"></span></span>
+                                    <span><span th:text="${sender.uname}" ></span></span>
                                 </div>
 
                             </div>

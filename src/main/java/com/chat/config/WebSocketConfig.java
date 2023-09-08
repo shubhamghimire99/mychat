@@ -18,7 +18,7 @@ public class WebSocketConfig implements WebSocketConfigurer,WebSocketMessageBrok
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(new ChatWebSocketHandler(), "/chat");
+        registry.addHandler(new ChatWebSocketHandler(), "/chat/");
     }
     
     @Override
@@ -28,7 +28,7 @@ public class WebSocketConfig implements WebSocketConfigurer,WebSocketMessageBrok
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-        registry.enableSimpleBroker("/topic");
+        registry.enableSimpleBroker("/topic/");
         registry.setApplicationDestinationPrefixes("/app");
     }
 

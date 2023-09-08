@@ -140,11 +140,13 @@ public class UserController {
 		// Fetch all users except the logged-in user
 		List<User> allUsers = userRepository.findAll();
 		allUsers.remove(user); // Remove the logged-in user from the list
-		
+
 		List<Friend> friend = friendRepogetory.getFriends(user.getId());
+
+
 		List<User> friends = new ArrayList<>();
 		
-
+		
 		// adding users to friends list if their id are present in friend
 		for (Friend f : friend) {
 			if (f.getReceiver() == user.getId()) {
@@ -153,6 +155,7 @@ public class UserController {
 				friends.add(userRepository.getReferenceById(f.getReceiver()));
 			}
 		}
+		allUsers.removeAll(friends);
 
 		model.addAttribute("friends", friends);
 

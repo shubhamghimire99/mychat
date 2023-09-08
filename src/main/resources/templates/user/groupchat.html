@@ -20,10 +20,11 @@
                     <div class="card mb-sm-3 mb-md-0 contacts_card">
                         <div class="card-header">
                             <div class="input-group">
-                                <input type="text" placeholder="Search..." name="" class="form-control search">
+                                <!-- <input type="text" placeholder="Search..." name="" class="form-control search">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text search_btn"><i class="fas fa-search"></i></span>
-                                </div>
+                                </div> -->
+                               
                             </div>
                         </div>
                         <!-- <div class="card-body contacts_body">
@@ -91,11 +92,14 @@
         </div>
 
         <script th:inline="javascript">
-            var loggedInUser = [[${ user }]];
+            var user = [[${ user }]];
+
+            // sending userId to chat.js
+            var userId = [[${ userId }]];
         </script>
 
 
-        <script th:src="@{/JS/chat.js}"></script>
+        <script th:src="@{/JS/groupchat.js}"></script>
     </section>
 </body>
 

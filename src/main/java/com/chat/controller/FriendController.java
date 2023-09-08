@@ -37,10 +37,11 @@ public class FriendController {
         User receiver =userRepository.getReferenceById(id);
         User sender = userRepository.getUserByUserName(principal.getName());
         Friend checkrequest =friendRepository.checkRequest(sender.getId(),receiver.getId());
-        if(checkrequest!=null)
-        	  return "redirect:/user/friends";
+        if(checkrequest!=null){
             
-        else{
+        	return "redirect:/user/friends";
+        } 
+        
         Friend friend = new Friend();
         friend.setReceiver(id);
         friend.setSender(sender.getId());
@@ -48,7 +49,7 @@ public class FriendController {
         friendRepository.save(friend);
         System.out.println(id);
         return "redirect:/user/friends"; 
-        }
+        
     }
     
     @PostMapping("/acceptRequest")
@@ -63,6 +64,7 @@ public class FriendController {
         
         Room room = roomRepository.getRoomByRoomName(roomName);
         if(room == null){
+            System.out.println("save");
             room = new Room();
             room.setGroup_name(roomName);
             roomRepository.save(room);
@@ -78,7 +80,7 @@ public class FriendController {
         groupMembers.setUser_id(senderId);
         groupMemberRepository.save(groupMembers);
 
-        return "redirect:/user/friends";
+        return "redirect:/user/notification";
     }
 
 }

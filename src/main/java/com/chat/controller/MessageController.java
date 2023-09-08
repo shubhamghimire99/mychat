@@ -29,48 +29,48 @@ public class MessageController {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @PostMapping("/send")
-    public String sendMessage(@ModelAttribute Messages message,
-                              BindingResult result1,
-                              Model model,
-                              Authentication authentication) {
+    // @PostMapping("/send")
+    // public String sendMessage(@ModelAttribute Messages message,
+    //                           BindingResult result1,
+    //                           Model model,
+    //                           Authentication authentication) {
         
-        if (result1.hasErrors()) {
-            model.addAttribute("message", message);
-            return "chat";
-        }
+    //     if (result1.hasErrors()) {
+    //         model.addAttribute("message", message);
+    //         return "chat";
+    //     }
 
-        String loggedInUserEmail = authentication.getName();
+    //     String loggedInUserEmail = authentication.getName();
             
-        // Find the user by email
-        User loggedInUser = this.userRepository.getUserByUserName(loggedInUserEmail);
+    //     // Find the user by email
+    //     User loggedInUser = this.userRepository.getUserByUserName(loggedInUserEmail);
         
-        message.setSender(loggedInUser.getEmail());
-        message.setImageUrl(loggedInUser.getFirstname()+"_"+loggedInUser.getLastname()+"_"+loggedInUser.getId());
-        message.setTimestamp(java.time.LocalDateTime.now());
+    //     message.setSender(loggedInUser.getEmail());
+    //     message.setImageUrl(loggedInUser.getFirstname()+"_"+loggedInUser.getLastname()+"_"+loggedInUser.getId());
+    //     message.setTimestamp(java.time.LocalDateTime.now());
         
-        Messages result = this.messageRepository.save(message);
+    //     Messages result = this.messageRepository.save(message);
 
-        String messageJson;
-        try{
-            messageJson = objectMapper.writeValueAsString(result);
-        } catch(Exception e) {
-            messageJson = "{'error': 'JSON serialization error'}";
-        }
+    //     String messageJson;
+    //     try{
+    //         messageJson = objectMapper.writeValueAsString(result);
+    //     } catch(Exception e) {
+    //         messageJson = "{'error': 'JSON serialization error'}";
+    //     }
         
-        // Broadcast the message to all connected users
-        for (WebSocketSession session : ChatWebSocketHandler.sessions) {
-            if (session.isOpen()) {
-                try {
-                    session.sendMessage(new TextMessage(messageJson));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+    //     // Broadcast the message to all connected users
+    //     for (WebSocketSession session : ChatWebSocketHandler.sessions) {
+    //         if (session.isOpen()) {
+    //             try {
+    //                 session.sendMessage(new TextMessage(messageJson));
+    //             } catch (IOException e) {
+    //                 e.printStackTrace();
+    //             }
+    //         }
+    //     }
         
-        return "redirect:/user/notification";
-    }
+    //     return "redirect:/user/notification";
+    // }
 
     @PostMapping("/sendChat")
     public String sendChat(@ModelAttribute Messages message,
@@ -111,7 +111,6 @@ public class MessageController {
                 }
             }
         }
-        
         return "redirect:/user/chat";
     }
 }

@@ -13,15 +13,17 @@
 				<div class="col-md-4 col-xl-6 chat">
 					<div class="card mb-sm-3 mb-md-0 friendrequest_card">
 						<div class="card-body contacts_body">
+							<h1 class="text-center headingfriends">Friend Requests</h1>
 							<ul class="friendrequest">
 								<li th:if="${requests.empty}">
 									No friend requests
 								</li>
+								
 								<li th:each="request : ${requests}">
 									<div class="friendrequest-list">
 										<div class="img_cont">
 											<img th:src="${request.imageUrl}" class="rounded-circle user_img">
-											<span class="online_icon"></span>
+											<!-- <span class="online_icon"></span> -->
 										</div>
 										<div class="user_info">
 											<span th:text="${request.firstname + ' ' + request.lastname}"></span>
@@ -35,11 +37,6 @@
 														class="input-group-append send-friend-request">
 														Accept
 													</button>
-													<!-- <button type="submit"
-														class="input-group-append delete-friend-request"
-														id="delete-friend-request">
-														Delete
-													</button> -->
 												</div>
 											</form>
 										</div>
@@ -49,6 +46,8 @@
 						</div>
 					</div>
 				</div>
+
 	</section>
 </body>
+
 </html>
