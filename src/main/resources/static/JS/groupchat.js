@@ -33,14 +33,28 @@ function toggleEmote() {
 }
 
 
-const openPopupButton = document.getElementById("openPopup");
-const closePopupButton = document.getElementById("closePopup");
+//popup
+// Get references to the popup and buttons
 const popup = document.getElementById("popup");
+const showPopupBtn = document.getElementById("showPopupBtn");
+const closePopupBtn = document.getElementById("closePopupBtn");
 
-openPopupButton.addEventListener("click", () => {
+// Function to show the popup
+function showPopup() {
     popup.style.display = "block";
-});
+}
 
-closePopupButton.addEventListener("click", () => {
+// Function to hide the popup
+function hidePopup() {
     popup.style.display = "none";
+}
+
+// Event listeners to trigger the popup
+showPopupBtn.addEventListener("click", showPopup);
+closePopupBtn.addEventListener("click", hidePopup);
+popup.addEventListener("click", hidePopup);
+
+// Prevent clicks within the popup from closing it
+popup.querySelector(".popup-content").addEventListener("click", function (event) {
+    event.stopPropagation();
 });

@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.chat.dao.MessageRepository;
+import com.chat.dao.RoomRepository;
 import com.chat.dao.UserRepository;
 import com.chat.entities.Messages;
 import com.chat.entities.User;
@@ -44,11 +45,13 @@ public class UserController {
 
 	@Autowired
 	private FriendRepository friendRepogetory;
+	@Autowired
+	private RoomRepository roomRepository;
 
 	@RequestMapping("/profile")
 	public String UserPofile(Model model, Principal principal) {
 		model.addAttribute("title", "User Profile");
-		String username = principal.getName();
+		String username = principal.getName(); 
 		// the user using username
 		User user = userRepository.getUserByUserName(username);
 
@@ -105,6 +108,33 @@ public class UserController {
 		return "/user/groupchat";
 	}
 
+	@RequestMapping("/creategroup")
+	public String createGroup(Model model, Principal principal) {
+		model.addAttribute("title", "Create Group");
+		String username = principal.getName();
+		User user = userRepository.getUserByUserName(username);
+
+		List<Friend> friend = friendRepogetory.getFriends(user.getId());
+
+		List<User> friends = new ArrayList<>();
+		// adding users to friends list if their id are present in friend
+		for (Friend f : friend) {
+			if (f.getReceiver() == user.getId()) {
+				friends.add(userRepository.getReferenceById(f.getSender()));
+			} else {
+				friends.add(userRepository.getReferenceById(f.getReceiver()));
+			}
+		}
+
+		model.addAttribute("friends", friends);
+
+		model.addAttribute("user", user);
+		return "/user/CreateGroup";
+	}
+
+	// postmapping for creating group in roomropository
+	
+
 	@RequestMapping("/notification")
 	public String notification(Model model, Principal principal) {
 
@@ -135,7 +165,6 @@ public class UserController {
 		String username = principal.getName();
 		User user = userRepository.getUserByUserName(username);
 		// fetch all users except the friends
-		
 
 		// Fetch all users except the logged-in user
 		List<User> allUsers = userRepository.findAll();
@@ -143,10 +172,8 @@ public class UserController {
 
 		List<Friend> friend = friendRepogetory.getFriends(user.getId());
 
-
 		List<User> friends = new ArrayList<>();
-		
-		
+
 		// adding users to friends list if their id are present in friend
 		for (Friend f : friend) {
 			if (f.getReceiver() == user.getId()) {
