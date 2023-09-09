@@ -18,7 +18,7 @@ public class WebSocketConfig implements WebSocketConfigurer,WebSocketMessageBrok
     //dynamic roomid
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(new ChatWebSocketHandler(), "/chat/{room_id}");
+        registry.addHandler(new ChatWebSocketHandler(), "/chat/{user_id}");
     }
     
     @Override

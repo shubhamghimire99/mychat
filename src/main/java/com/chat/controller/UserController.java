@@ -13,6 +13,8 @@ import javax.swing.GroupLayout.Group;
 import com.chat.dao.FriendRepository;
 import com.chat.dao.GroupMemberRepository;
 import com.chat.entities.Friend;
+import com.chat.entities.GroupMembers;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,8 +28,10 @@ import com.chat.dao.MessageRepository;
 import com.chat.dao.RoomRepository;
 import com.chat.dao.UserRepository;
 import com.chat.entities.Messages;
+import com.chat.entities.Room;
 import com.chat.entities.User;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Controller
@@ -45,13 +49,14 @@ public class UserController {
 
 	@Autowired
 	private FriendRepository friendRepogetory;
+	//autowire roomrepository
 	@Autowired
 	private RoomRepository roomRepository;
 
 	@RequestMapping("/profile")
 	public String UserPofile(Model model, Principal principal) {
 		model.addAttribute("title", "User Profile");
-		String username = principal.getName(); 
+		String username = principal.getName();
 		// the user using username
 		User user = userRepository.getUserByUserName(username);
 
@@ -68,9 +73,8 @@ public class UserController {
 		String username = principal.getName();
 		User user = userRepository.getUserByUserName(username);
 
-		
 		List<Friend> friend = friendRepogetory.getFriends(user.getId());
-		
+
 		List<User> friends = new ArrayList<>();
 		// adding users to friends list if their id are present in friend
 		for (Friend f : friend) {
@@ -80,9 +84,9 @@ public class UserController {
 				friends.add(userRepository.getReferenceById(f.getReceiver()));
 			}
 		}
-		
+
 		model.addAttribute("friends", friends);
-		
+
 		List<Messages> userMessages = null;
 		// fetch user from database using userId
 		if (userId != 0) {
@@ -111,6 +115,22 @@ public class UserController {
 		return "/user/groupchat";
 	}
 
+	@PostMapping("/create_group")
+	public String group(@ModelAttribute("room") Room Room,Principal principal, Model model, HttpSession Session) {
+		// get logined user id
+		String username = principal.getName();
+		User user = userRepository.getReferenceById(userRepository.getUserByUserName(username).getId());
+		// GroupMembers groupMembers = new GroupMembers();
+		// groupMembers.setUser_id(user.getId());
+		// groupMembers.setRoom_id(Room.getId());
+		//set user id in group member table
+
+		//save group name in room table
+		Room result = roomRepository.save(Room);
+		model.addAttribute("room", result);
+		return "/user/CreateGroup";
+	}
+
 	@RequestMapping("/creategroup")
 	public String createGroup(Model model, Principal principal) {
 		model.addAttribute("title", "Create Group");
@@ -134,6 +154,19 @@ public class UserController {
 		model.addAttribute("user", user);
 		return "/user/CreateGroup";
 	}
+	//save the users in group member tables
+	// @PostMapping("/add_member")
+	// public String addMember(Principal principal,@RequestParam("room_id") int room_id, @RequestParam("user_id") int user_id, Model model) {
+	// 	//get logined user by id
+	// 	User user = userRepository.getUserByUserName(principal.getName());
+		
+
+
+	// 	GroupMembers groupMembers = new GroupMembers();
+	// 	groupMembers.setRoom_id(room_id);
+		
+	// 	return "redirect:/user/creategroup";
+	// }
 
 	@RequestMapping("/notification")
 	public String notification(Model model, Principal principal) {

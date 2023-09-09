@@ -20,7 +20,7 @@
 
         <div class="col-md-8 col-xl-6 chat">
             <div class="card">
-               
+
 
 
                 <div class="card-body msg_card_body" id="chat">
@@ -32,37 +32,29 @@
                             Chatting
                         </li>
                         <li th:each="otherUser : ${friends}">
-
-                            <a th:href="@{/user/chat(userId=${otherUser.id})}">
-                                <div class="d-flex bd-highlight">
-                                    <div class="img_cont">
-                                        <img th:src="${otherUser.imageUrl}" class="rounded-circle user_img">
-                                        <span class="online_icon"></span>
-                                    </div>
-                                    <div class="user_info">
-                                        <span th:text="${otherUser.firstname + ' ' + otherUser.lastname}"></span>
-                                        <!-- You can add more information about the user if needed -->
-                                    </div>
-                                    <div class="align-self-center frnd_btn">                                                                                                                              
-                                        <form th:action="@{/add_to_group}" method="post">
-                                            <!-- <input hidden name="reciver" th:value="${otherUser.id}"> -->
-                                            <button type="submit"
-                                                class="input-group-append send-friend-request">
-                                                Add To Group
-                                            </button>
-                                        </form>
-                                    </div>
+                            <!-- <a th:href="@{/user/chat(userId=${otherUser.id})}"> -->
+                            <div class="d-flex bd-highlight">
+                                <div class="img_cont">
+                                    <img th:src="${otherUser.imageUrl}" class="rounded-circle user_img">
+                                    <span class="online_icon"></span>
                                 </div>
+                                <div class="user_info">
+                                    <span th:text="${otherUser.firstname + ' ' + otherUser.lastname}"></span>
+                                    <!-- You can add more information about the user if needed -->
                                 </div>
-                            </a>
+                                <div class="align-self-center frnd_btn">
+                                    <form th:action="@{/add_member}" method="post">
+                                        <input hidden name="user_id" th:value="${otherUser.id}">
+                                        <button type="submit" class="input-group-append send-friend-request">
+                                            Add To Group
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
                         </li>
                     </ul>
                 </div>
-
             </div>
-        </div>
-
-
     </section>
 </body>
 
