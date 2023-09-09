@@ -55,12 +55,13 @@ public class MessageController {
         User loggedInUser = this.userRepository.getUserByUserName(loggedInUserEmail);
         
         // get room_id from group_members table using 2 user_ids
-        int room_id = groupMemberRepository.getRoomId(loggedInUser.getId(), receiver);
-        System.out.println("room_id: " + room_id);
+//        int room_id = groupMemberRepository.getRoomId(loggedInUser.getId(), receiver);
+//        System.out.println("room_id: " + room_id);
 
         message.setSender(loggedInUser.getEmail());
+        message.setSenderId(loggedInUser.getId());
         message.setImageUrl(loggedInUser.getImageUrl());
-        message.setRoom_id(room_id);
+//        message.setRoom_id(room_id);
         message.setTimestamp(java.time.LocalDateTime.now());
         
         Messages result = this.messageRepository.save(message);
@@ -71,16 +72,14 @@ public class MessageController {
         } catch(Exception e) {
             messageJson = "{'error': 'JSON serialization error'}";
         }
-        
-        // Broadcast the message to all connected users
-        for (WebSocketSession session : ChatWebSocketHandler.sessions) {
-            if (session.isOpen()) {
-                try {
-                    session.sendMessage(new TextMessage(messageJson));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+        User rec = userRepository.getReferenceById(receiver);
+
+
+        WebSocketSession session = ChatWebSocketHandler.sessions.get(rec.getEmail());
+        try {
+            session.sendMessage(new TextMessage(messageJson));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return "redirect:/user/chat?userId=" + receiver;
     }
