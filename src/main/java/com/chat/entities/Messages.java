@@ -19,8 +19,17 @@ public class Messages {
     private String message;
     
     private String sender;
-    
-    private String imageUrl;
+	private Integer senderId;
+
+	public Integer getSenderId() {
+		return senderId;
+	}
+
+	public void setSenderId(Integer senderId) {
+		this.senderId = senderId;
+	}
+
+	private String imageUrl;
 	
 	private int room_id;
 

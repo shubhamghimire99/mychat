@@ -1,6 +1,9 @@
 package com.chat.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
@@ -8,9 +11,12 @@ import com.chat.entities.Messages;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.chat.dao.MessageRepository;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ChatWebSocketHandler extends TextWebSocketHandler {
 
@@ -18,7 +24,8 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
     private ObjectMapper objectMapper;
 
     private final MessageRepository messageRepository;
-    final static List<WebSocketSession> sessions = new ArrayList<>();
+    // final static List<WebSocketSession> sessions = new HashMap<>();
+    final static HashMap<String, WebSocketSession> sessions = new HashMap<>();
 
     public ChatWebSocketHandler(MessageRepository messageRepository) {
         this.messageRepository = messageRepository;
@@ -30,9 +37,10 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        // get user id for logined user
+        Principal principal = session.getPrincipal();
+        System.out.println(principal.getName());
+        sessions.put(principal.getName(), session);
 
-        sessions.add(session);
     }
 
     @Override
@@ -58,9 +66,9 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
         } catch (Exception e) {
             messageJson = "{'error': 'JSON serialization error'}";
         }
-
+        List<WebSocketSession> allSessions = (List<WebSocketSession>) sessions.values();
         // Broadcast the message to all connected users
-        for (WebSocketSession currentSession : sessions) {
+        for (WebSocketSession currentSession : allSessions) {
             if (currentSession.isOpen()) {
                 currentSession.sendMessage(new TextMessage(messageJson));
             }
