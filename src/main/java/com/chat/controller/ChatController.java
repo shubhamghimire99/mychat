@@ -56,38 +56,4 @@ public class ChatController {
         // reference
     }
 
-    // @MessageMapping("/chat.send")
-    // public void sendMessage(@Payload ChatMessage chatMessage,
-    // SimpMessageHeaderAccessor headerAccessor) {
-    // int room_id = chatMessage.getRoomId();
-    // Set<WebSocketSession> roomSessions = chatRooms.get(room_id);
-
-    // if (roomSessions != null) {
-    // // Broadcast the message to all users in the room
-    // for (WebSocketSession session : roomSessions) {
-    // if (session.isOpen()) {
-    // try {
-    // session.sendMessage(new TextMessage(chatMessage.getContent()));
-    // } catch (IOException e) {
-    // e.printStackTrace();
-    // }
-    // }
-    // }
-    // }
-    // }
-
-    // @MessageMapping("/chat.join")
-    // public void joinRoom(@Payload ChatMessage chatMessage,
-    // SimpMessageHeaderAccessor headerAccessor) {
-    // int room_id = chatMessage.getRoomId();
-
-    // WebSocketSession session = new headerAccessor.getSessionId();
-
-    // // Add the session to the chat room
-    // chatRooms.computeIfAbsent(room_id, key ->
-    // ConcurrentHashMap.newKeySet()).add(session);
-
-    // // You may also want to update the user's session with the room_id for future
-    // reference
-    // }
 }

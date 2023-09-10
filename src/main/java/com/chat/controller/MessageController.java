@@ -12,6 +12,7 @@ import java.security.Principal;
 
 import javax.swing.GroupLayout.Group;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -42,7 +43,8 @@ public class MessageController {
             Model model,
             Authentication authentication,
             Principal principal,
-            @RequestParam("receiver") int receiver) {
+            @RequestParam(value = "receiver", defaultValue = "0") int receiver,
+            @RequestParam(value = "groupId", defaultValue = "0") int groupId) {
 
         if (result1.hasErrors()) {
             model.addAttribute("message", message);
@@ -54,31 +56,60 @@ public class MessageController {
         // Find the user by email
         User loggedInUser = this.userRepository.getUserByUserName(loggedInUserEmail);
 
-        int room_id = groupMemberRepository.getRoomId(loggedInUser.getId(), receiver);
-        System.out.println("room_id: " + room_id);
-
         message.setSender(loggedInUser.getEmail());
         message.setSenderId(loggedInUser.getId());
         message.setImageUrl(loggedInUser.getImageUrl());
-        message.setRoom_id(room_id);
+
+        if (groupId != 0) {
+
+            message.setRoom_id(groupId);
+        } else {
+
+            int room_id = groupMemberRepository.getRoomId(loggedInUser.getId(), receiver);
+            message.setRoom_id(room_id);
+        }
         message.setTimestamp(java.time.LocalDateTime.now());
 
         Messages result = this.messageRepository.save(message);
+        if (groupId == 0) {
+            String messageJson;
+            try {
+                messageJson = objectMapper.writeValueAsString(result);
+            } catch (Exception e) {
+                messageJson = "{'error': 'JSON serialization error'}";
+            }
+            User rec = userRepository.getReferenceById(receiver);
 
-        String messageJson;
-        try {
-            messageJson = objectMapper.writeValueAsString(result);
-        } catch (Exception e) {
-            messageJson = "{'error': 'JSON serialization error'}";
+            WebSocketSession session = ChatWebSocketHandler.sessions.get(rec.getEmail());
+            try {
+                session.sendMessage(new TextMessage(messageJson));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return "redirect:/user/chat?userId=" + receiver;
         }
-        User rec = userRepository.getReferenceById(receiver);
 
-        WebSocketSession session = ChatWebSocketHandler.sessions.get(rec.getEmail());
-        try {
-            session.sendMessage(new TextMessage(messageJson));
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (groupId != 0) {
+            return "redirect:/user/groupchat?roomId=" + groupId;
+        } else {
+            String messageJson;
+            try {
+                messageJson = objectMapper.writeValueAsString(result);
+            } catch (Exception e) {
+                messageJson = "{'error': 'JSON serialization error'}";
+            }
+
+            User rec = userRepository.getReferenceById(receiver);
+
+            WebSocketSession session = ChatWebSocketHandler.sessions.get(rec.getEmail());
+            try {
+                session.sendMessage(new TextMessage(messageJson));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return "redirect:/user/chat?userId=" + receiver;
         }
-        return "redirect:/user/chat?userId=" + receiver;
+
     }
+
 }

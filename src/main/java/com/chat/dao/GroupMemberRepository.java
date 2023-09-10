@@ -20,7 +20,7 @@ public interface GroupMemberRepository extends JpaRepository<GroupMembers, Integ
         @Query("select gm.room.id from GroupMembers gm " +
                         "inner join gm.room r " +
                         "where gm.user.id = :user_id " +
-                        "and gm.room.admin > 0 "+
+                        "and gm.room.admin > 0 " +
                         "and isGroup = true")
         public List<Integer> getRoomIdFromUserId(int user_id);
 

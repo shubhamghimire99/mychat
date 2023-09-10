@@ -116,6 +116,11 @@ public class UserController {
 			room = roomRepository.getRoomByRoomId(id);
 			rooms.add(room);
 		}
+		List<Messages> messages = messageRepository.findByRoomId(roomId);
+		model.addAttribute("user", user);
+
+		model.addAttribute("messages", messages);
+		System.out.println(messages);
 
 		model.addAttribute("rooms", rooms);
 
