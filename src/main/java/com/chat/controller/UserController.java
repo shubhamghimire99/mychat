@@ -99,8 +99,8 @@ public class UserController {
 	}
 
 	@RequestMapping("/groupchat")
-	public String groupchat(Model model, Principal principal, 
-		@RequestParam(value = "roomId", required = false, defaultValue = "0") int	roomId) {
+	public String groupchat(Model model, Principal principal,
+			@RequestParam(value = "roomId", required = false, defaultValue = "0") int roomId) {
 
 		model.addAttribute("title", "Group Chat");
 		String username = principal.getName();
@@ -123,7 +123,7 @@ public class UserController {
 		model.addAttribute("roomId", roomId);
 
 		// adding selected room attirbute if roomId greater than 0
-		if(roomId > 0){
+		if (roomId > 0) {
 			room = roomRepository.getReferenceById(roomId);
 			model.addAttribute("room", room);
 		}
@@ -142,18 +142,18 @@ public class UserController {
 
 		// setting first user in group
 		GroupMembers groupMembers = new GroupMembers();
-        groupMembers.setRoom(roomRepository.getRoomByRoomId(Room.getId()));
-        groupMembers.setUser(userRepository.getReferenceById(user.getId()));
+		groupMembers.setRoom(roomRepository.getRoomByRoomId(Room.getId()));
+		groupMembers.setUser(userRepository.getReferenceById(user.getId()));
 		groupMembers.setGroup(true);
-        groupMemberRepository.save(groupMembers);
+		groupMemberRepository.save(groupMembers);
 
 		return "redirect:/user/groupchat";
 	}
 
 	@RequestMapping("/addmembers")
 	public String createGroup(Model model, Principal principal,
-		@RequestParam(value = "roomId", required = false, defaultValue = "0") int	roomId,
-		@RequestParam(value = "userId", required = false, defaultValue = "0") int	userId) {
+			@RequestParam(value = "roomId", required = false, defaultValue = "0") int roomId,
+			@RequestParam(value = "userId", required = false, defaultValue = "0") int userId) {
 
 		model.addAttribute("title", "Add Members");
 
@@ -175,14 +175,14 @@ public class UserController {
 		System.out.println("roomId: " + roomId);
 		System.out.println("userId: " + userId);
 		// adding user id in group_members table
-		if(roomId > 0 && userId > 0){
+		if (roomId > 0 && userId > 0) {
 			GroupMembers groupMembers = new GroupMembers();
 			groupMembers.setRoom(roomRepository.getRoomByRoomId(roomId));
 			groupMembers.setUser(userRepository.getReferenceById(userId));
 			groupMembers.setGroup(true);
 			groupMemberRepository.save(groupMembers);
 		}
-		
+
 		model.addAttribute("friends", friends);
 		model.addAttribute("roomId", roomId);
 		model.addAttribute("user", user);

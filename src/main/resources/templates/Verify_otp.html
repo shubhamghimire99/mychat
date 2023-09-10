@@ -15,25 +15,24 @@
 		<div class="row ">
 			<div class="col-md-8 offset-md-2">
 				<div class="my-card mt-5 text-white">
-					<h1 class="text-center text-white">Forget Password</h1>
-					<div th:if="${session.message}"  class="container">
-						<div  class="alert alert-danger my-2 text-center" role="alert">
-							<span th:text="${session.message}"></span> 
-						</div>
-					</div>
+					<h1 class="text-center text-white">Enter your OTP Here</h1>
+					<div class="alert alert-success" role="alert">
 
-					<form action="" th:action="@{/send-otp}" method="post">
+						We have sent OTP to your email
+
+					  </div>
+					<form action="" th:action="@{/verify-otp}" method="post">
 						<!--Email-field-->
 						<div class="mb-3">
-							<label for="exampleInputEmail1" class="form-label">Enter Your Registered Email Address</label>
-							<input name="email" type="email" class="form-control" id="exampleInputEmail1"
-								aria-describedby="emailHelp">
+							<label for="exampleInputEmail1" class="form-label">Enter Your Conformation code</label>
+							<input name="otp" type="text" class="form-control" id="exampleInputEmail1"
+								aria-describedby="emailHelp" required="required">
 						</div>
 						<!--button-field-->
 
 						<div class=" btn-container text-center">
-							<button type="submit" class="btn bg-success text-white">
-								Send Code
+							<button  class="btn bg-success text-white">
+								Verify
 							</button>
 
 						</div>
