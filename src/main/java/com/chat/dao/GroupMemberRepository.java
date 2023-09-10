@@ -1,14 +1,27 @@
 package com.chat.dao;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.chat.entities.GroupMembers;
 
-public interface GroupMemberRepository extends JpaRepository<GroupMembers, Integer>{
+public interface GroupMemberRepository extends JpaRepository<GroupMembers, Integer> {
 
-    // return room_id from group_members table using 2 user_ids
-    @Query("select gm.room_id from GroupMembers gm where (gm.user_id = :user_id1 or gm.user_id = :user_id2) group by gm.room_id having count(gm.room_id) = 2")
-    public int getRoomId(int user_id1, int user_id2);
+        @Query("select gm.room.id from GroupMembers gm " +
+                        "inner join gm.room r " +
+                        "where (gm.user.id = :user_id1 or gm.user.id = :user_id2) " +
+                        "and r.admin = 0 " +
+                        "group by gm.room.id having count(gm.room.id) = 2")
+        public int getRoomId(int user_id1, int user_id2);
+
+        // list room id by isGroup true and admin
+        @Query("select gm.room.id from GroupMembers gm " +
+                        "inner join gm.room r " +
+                        "where gm.user.id = :user_id " +
+                        "and gm.room.admin > 0 "+
+                        "and isGroup = true")
+        public List<Integer> getRoomIdFromUserId(int user_id);
 
 }

@@ -1,7 +1,5 @@
 package com.chat.entities;
 
-
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,32 +11,33 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name="USER")
+@Table(name = "USER")
 public class User {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	
-	@NotBlank(message="First Name is required!")
-	@Size(min= 2,max=20,message= "Minimum 2 and maximul 20 characters are allowed")
+
+	@NotBlank(message = "First Name is required!")
+	@Size(min = 2, max = 20, message = "Minimum 2 and maximul 20 characters are allowed")
 	private String firstname;
-	@NotBlank(message="Last Name is required!")
-	@Size(min= 2,max=20,message= "Minimum 2 and maximul 20 characters are allowed")
+
+	@NotBlank(message = "Last Name is required!")
+	@Size(min = 2, max = 20, message = "Minimum 2 and maximul 20 characters are allowed")
 	private String lastname;
-	@NotBlank(message="User Name is required!")
-	@Size(min= 2,max=20,message= "Minimum 2 and maximul 20 characters are allowed")
+
+	@NotBlank(message = "User Name is required!")
+	@Size(min = 2, max = 20, message = "Minimum 2 and maximul 20 characters are allowed")
 	private String uname;
+
 	@Column(unique = true)
-	@Pattern(regexp= "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$", message="invalid email")
-	
+	@Pattern(regexp = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$", message = "invalid email")
 	private String email;
+	
 	private String contact;
 	private String password;
 	private String role;
 	private boolean enabled;
 	private String imageUrl;
-	
-
 
 	public int getId() {
 		return id;
@@ -47,8 +46,6 @@ public class User {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
-	
 
 	public String getFirstname() {
 		return firstname;
@@ -65,6 +62,7 @@ public class User {
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
+
 	public String getUname() {
 		return uname;
 	}
@@ -127,7 +125,5 @@ public class User {
 				+ ", email=" + email + ", contact=" + contact + ", password=" + password + ", role=" + role
 				+ ", enabled=" + enabled + ", imageUrl=" + imageUrl + "]";
 	}
-
-	
 
 }

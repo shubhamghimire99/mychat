@@ -1,8 +1,30 @@
 //for : button
 $(document).ready(function () {
-	$('#action_menu_btn').click(function () {
-		$('.action_menu').toggle();
-	});
+    $('#action_menu_btn').click(function () {
+        $('.action_menu').toggle();
+    });
+});
+
+//popup
+// Get references to the popup and buttons
+let modal = document.querySelector("[data-modal]");
+let open = document.querySelector("[data-open-modal]");
+let close = document.querySelector("[data-close-modal]");
+
+// Add event listeners
+open.addEventListener("click", () => {
+    modal.showModal();
+});
+
+close.addEventListener("click", () => {
+    modal.close();
+})
+
+// close popup when clicking outside
+modal.addEventListener("click", (e) => {
+    if (e.target === modal) {
+        modal.close();
+    }
 });
 
 function scrollToBottom() {
@@ -15,13 +37,13 @@ window.addEventListener('load', scrollToBottom);
 
 
 //For Emojies
-const message=document.getElementById("message");
-const pickerOptions = { 
-    onEmojiSelect: (e)=>{
-        message.value+=e.native
+const message = document.getElementById("message");
+const pickerOptions = {
+    onEmojiSelect: (e) => {
+        message.value += e.native
 
     }
-};   
+};
 
 const picker = new EmojiMart.Picker(pickerOptions);
 picker.classList.toggle("hide");
@@ -31,30 +53,3 @@ document.getElementById("chat-form").appendChild(picker);
 function toggleEmote() {
     picker.classList.toggle("hide");
 }
-
-
-//popup
-// Get references to the popup and buttons
-const popup = document.getElementById("popup");
-const showPopupBtn = document.getElementById("showPopupBtn");
-const closePopupBtn = document.getElementById("closePopupBtn");
-
-// Function to show the popup
-function showPopup() {
-    popup.style.display = "block";
-}
-
-// Function to hide the popup
-function hidePopup() {
-    popup.style.display = "none";
-}
-
-// Event listeners to trigger the popup
-showPopupBtn.addEventListener("click", showPopup);
-closePopupBtn.addEventListener("click", hidePopup);
-popup.addEventListener("click", hidePopup);
-
-// Prevent clicks within the popup from closing it
-popup.querySelector(".popup-content").addEventListener("click", function (event) {
-    event.stopPropagation();
-});

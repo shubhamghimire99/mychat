@@ -64,20 +64,20 @@ public class FriendController {
         
         Room room = roomRepository.getRoomByRoomName(roomName);
         if(room == null){
-            System.out.println("save");
             room = new Room();
             room.setGroup_name(roomName);
+            room.setAdmin(0);
             roomRepository.save(room);
         }
 
         GroupMembers groupMembers = new GroupMembers();
-        groupMembers.setRoom_id(room.getId());
-        groupMembers.setUser_id(receiver.getId());
+        groupMembers.setRoom(room);
+        groupMembers.setUser(receiver);
         groupMemberRepository.save(groupMembers);
 
         groupMembers = new GroupMembers();
-        groupMembers.setRoom_id(room.getId());
-        groupMembers.setUser_id(senderId);
+        groupMembers.setRoom(room);
+        groupMembers.setUser(userRepository.getReferenceById(senderId));
         groupMemberRepository.save(groupMembers);
 
         return "redirect:/user/notification";
