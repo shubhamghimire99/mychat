@@ -30,6 +30,8 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+        // get user id for logined user
+
         sessions.add(session);
     }
 
@@ -37,7 +39,7 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
     protected void handleTextMessage(WebSocketSession session, TextMessage textMessage) throws Exception {
         String payload = textMessage.getPayload();
         // Assuming the payload contains sender information and the message
-        
+
         // Parse the payload and extract sender and message
         String[] parts = payload.split(":");
         String sender = parts[0];
@@ -51,9 +53,9 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
         messageRepository.save(message);
 
         String messageJson;
-        try{
+        try {
             messageJson = objectMapper.writeValueAsString(message);
-        } catch(Exception e) {
+        } catch (Exception e) {
             messageJson = "{'error': 'JSON serialization error'}";
         }
 

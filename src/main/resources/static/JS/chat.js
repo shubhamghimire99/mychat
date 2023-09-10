@@ -13,9 +13,13 @@ function scrollToBottom() {
 // Scroll to the bottom when the page is loaded or reloaded
 window.addEventListener('load', scrollToBottom);
 
+// get the id of otherusers in the chat
+
 
 // using jQuery to print a message when the document is ready
-var socket = new WebSocket("ws://" + window.location.host + "/chat/{room_id}");
+// sending the url of dynamic chat room to the server
+
+var socket = new WebSocket("ws://" + window.location.host + "/chat");
 
 socket.onmessage = function (event) {
 
