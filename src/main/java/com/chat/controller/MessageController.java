@@ -89,7 +89,7 @@ public class MessageController {
                 e.printStackTrace();
             }
             return "redirect:/user/chat?userId=" + receiver;
-        }else{
+        } else {
             String messageJson;
             try {
                 messageJson = objectMapper.writeValueAsString(result);
@@ -97,10 +97,10 @@ public class MessageController {
                 messageJson = "{'error': 'JSON serialization error'}";
             }
             List<GroupMembers> members = groupMemberRepository.getAllMembersByRoomId(groupId);
-            for(GroupMembers gm: members){
+            for (GroupMembers gm : members) {
                 System.out.println(gm.getUser().getUname());
                 WebSocketSession session = ChatWebSocketHandler.sessions.get(gm.getUser().getEmail());
-                if(session != null){
+                if (session != null) {
 
                     try {
                         session.sendMessage(new TextMessage(messageJson));
@@ -111,8 +111,6 @@ public class MessageController {
             }
             return "redirect:/user/groupchat?roomId=" + groupId;
         }
-
-
 
     }
 
