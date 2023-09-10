@@ -18,7 +18,8 @@ public class WebSocketConfig implements WebSocketConfigurer, WebSocketMessageBro
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(new ChatWebSocketHandler(), "/chat");
+        registry.addHandler(new ChatWebSocketHandler(), "/chat{room_id}")
+                .setAllowedOrigins("/user/*");
     }
 
     @Override

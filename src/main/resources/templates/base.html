@@ -35,7 +35,10 @@
 	<!--this is navbar-->
 	<nav class="navbar navbar-expand-lg">
 		<div class="container-fluid">
-			<a href="#" class="logo" th:text="${user.firstname + ' ' + user.lastname}" ></a>
+			<div class="img_cont_msg">
+				<img th:src="${user.imageUrl}" class="rounded-circle user_img_msg">
+			</div>
+			<a href="#" class="logo" th:text="${ user.firstname + ' ' + user.lastname}" ></a>
 
 			<button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse"
 				data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"

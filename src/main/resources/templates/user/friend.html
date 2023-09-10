@@ -13,7 +13,7 @@
                     <div class="card mb-sm-3 mb-md-0 contacts-card">
                         <div class="card-body contacts_body">
                             <ul class="friends">
-                                <h1 class="text-center headingfriends">Sent Friend Request</h1>
+                                <h1 class="text-center headingfriends">Send Friend Request</h1>
 
                                 <li th:each="otherUser : ${allUsers}">
                                     <div class="friend-list">
@@ -32,7 +32,7 @@
                                                     <input hidden name="reciver" th:value="${otherUser.id}">
                                                     <button type="submit"
                                                         class="input-group-append send-friend-request">
-                                                        Sent Friend Request
+                                                        Add Friend
                                                     </button>
                                                 </form>
                                             </div>

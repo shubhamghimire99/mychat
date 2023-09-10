@@ -15,17 +15,19 @@ window.addEventListener("load", scrollToBottom);
 
 // using jQuery to print a message when the document is ready
 // sending the url of dynamic chat room to the server
+//stop auto reload of page
 
-var socket = new WebSocket("ws://" + window.location.host + "/chat");
+
+var socket = new WebSocket("ws://" + window.location.host + "/chat{room_id}");
 
 socket.onmessage = function (event) {
+  var imageUrl = document.getElementById("image");
   var message = JSON.parse(event.data);
   const url = new URLSearchParams(location.search);
   const currentDM = url.get("userId");
   if (currentDM != message.senderId) return;
   var msgArea = document.createElement("div");
   var messageElement = document.createElement("div");
-
   messageElement.className = "d-flex justify-content-start mb-4";
 
   messageElement.innerHTML =
@@ -43,6 +45,7 @@ socket.onmessage = function (event) {
   msgArea.appendChild(messageElement);
   $("#chat").append(msgArea);
   console.log("Received message: " + event.data);
+
 };
 
 //For Emojies

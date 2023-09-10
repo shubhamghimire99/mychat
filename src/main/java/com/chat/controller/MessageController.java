@@ -38,42 +38,40 @@ public class MessageController {
 
     @PostMapping("/sendChat")
     public String sendChat(@ModelAttribute Messages message,
-                              BindingResult result1,
-                              Model model,
-                              Authentication authentication,
-                              Principal principal,
-                              @RequestParam("receiver") int receiver) {
-        
+            BindingResult result1,
+            Model model,
+            Authentication authentication,
+            Principal principal,
+            @RequestParam("receiver") int receiver) {
+
         if (result1.hasErrors()) {
             model.addAttribute("message", message);
             return "user/chat";
         }
 
         String loggedInUserEmail = authentication.getName();
-            
+
         // Find the user by email
         User loggedInUser = this.userRepository.getUserByUserName(loggedInUserEmail);
-        
-        // get room_id from group_members table using 2 user_ids
-//        int room_id = groupMemberRepository.getRoomId(loggedInUser.getId(), receiver);
-//        System.out.println("room_id: " + room_id);
+
+        int room_id = groupMemberRepository.getRoomId(loggedInUser.getId(), receiver);
+        System.out.println("room_id: " + room_id);
 
         message.setSender(loggedInUser.getEmail());
         message.setSenderId(loggedInUser.getId());
         message.setImageUrl(loggedInUser.getImageUrl());
-//        message.setRoom_id(room_id);
+        message.setRoom_id(room_id);
         message.setTimestamp(java.time.LocalDateTime.now());
-        
+
         Messages result = this.messageRepository.save(message);
 
         String messageJson;
-        try{
+        try {
             messageJson = objectMapper.writeValueAsString(result);
-        } catch(Exception e) {
+        } catch (Exception e) {
             messageJson = "{'error': 'JSON serialization error'}";
         }
         User rec = userRepository.getReferenceById(receiver);
-
 
         WebSocketSession session = ChatWebSocketHandler.sessions.get(rec.getEmail());
         try {
