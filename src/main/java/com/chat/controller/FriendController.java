@@ -71,13 +71,13 @@ public class FriendController {
         }
 
         GroupMembers groupMembers = new GroupMembers();
-        groupMembers.setRoom_id(room.getId());
-        groupMembers.setUser_id(receiver.getId());
+        groupMembers.setRoom(room);
+        groupMembers.setUser(receiver);
         groupMemberRepository.save(groupMembers);
 
         groupMembers = new GroupMembers();
-        groupMembers.setRoom_id(room.getId());
-        groupMembers.setUser_id(senderId);
+        groupMembers.setRoom(room);
+        groupMembers.setUser(userRepository.getReferenceById(senderId));
         groupMemberRepository.save(groupMembers);
 
         return "redirect:/user/notification";
