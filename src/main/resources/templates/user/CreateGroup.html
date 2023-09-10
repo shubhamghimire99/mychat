@@ -43,16 +43,18 @@
                                     <!-- You can add more information about the user if needed -->
                                 </div>
                                 <div class="align-self-center frnd_btn">
-                                    <form th:action="@{/add_member}" method="post">
-                                        <input hidden name="user_id" th:value="${otherUser.id}">
-                                        <button type="submit" class="input-group-append send-friend-request">
-                                            Add To Group
-                                        </button>
-                                    </form>
+                                    <a th:href="@{/user/addmembers(roomId=${roomId},userId=${otherUser.id})}"
+                                        class="input-group-append send-friend-request">
+                                        Add To Group
+                                    </a>
                                 </div>
                             </div>
                         </li>
                     </ul>
+                    <a th:href="@{/user/groupchat(roomId=${roomId})}"
+                        class="input-group-append send-friend-request">
+                        Go Back
+                    </a>
                 </div>
             </div>
     </section>

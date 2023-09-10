@@ -1,14 +1,9 @@
 package com.chat.controller;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.GroupLayout.Group;
 
 import com.chat.dao.FriendRepository;
 import com.chat.dao.GroupMemberRepository;
@@ -31,9 +26,6 @@ import com.chat.entities.Messages;
 import com.chat.entities.Room;
 import com.chat.entities.User;
 
-import jakarta.servlet.http.HttpSession;
-import jakarta.validation.Valid;
-
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -49,7 +41,7 @@ public class UserController {
 
 	@Autowired
 	private FriendRepository friendRepogetory;
-	//autowire roomrepository
+	// autowire roomrepository
 	@Autowired
 	private RoomRepository roomRepository;
 
@@ -90,7 +82,7 @@ public class UserController {
 		List<Messages> userMessages = null;
 		// fetch user from database using userId
 		if (userId != 0) {
-			User sender = userRepository.findById(userId);
+			User sender = userRepository.getReferenceById(userId);
 			model.addAttribute("sender", sender);
 			int room_id = groupMemberRepository.getRoomId(user.getId(), userId);
 			System.out.println("room_id: " + room_id);
@@ -107,33 +99,64 @@ public class UserController {
 	}
 
 	@RequestMapping("/groupchat")
-	public String groupchat(Model model, Principal principal) {
+	public String groupchat(Model model, Principal principal, 
+		@RequestParam(value = "roomId", required = false, defaultValue = "0") int	roomId) {
+
 		model.addAttribute("title", "Group Chat");
 		String username = principal.getName();
 		User user = userRepository.getUserByUserName(username);
 		model.addAttribute("user", user);
-		return "/user/groupchat";
+
+		List<Room> rooms = new ArrayList<>();
+
+		// get all rooms by admin id
+		List<Integer> roomIds = groupMemberRepository.getRoomIdFromUserId(user.getId());
+		Room room = null;
+		for (Integer id : roomIds) {
+			room = roomRepository.getRoomByRoomId(id);
+			rooms.add(room);
+		}
+
+		model.addAttribute("rooms", rooms);
+
+		// adding roomId attribute
+		model.addAttribute("roomId", roomId);
+
+		// adding selected room attirbute if roomId greater than 0
+		if(roomId > 0){
+			room = roomRepository.getReferenceById(roomId);
+			model.addAttribute("room", room);
+		}
+
+		return "user/groupchat";
 	}
 
-	@PostMapping("/create_group")
-	public String group(@ModelAttribute("room") Room Room,Principal principal, Model model, HttpSession Session) {
+	@RequestMapping("/create_group")
+	public String group(@ModelAttribute("room") Room Room, Principal principal, Model model) {
 		// get logined user id
 		String username = principal.getName();
 		User user = userRepository.getReferenceById(userRepository.getUserByUserName(username).getId());
-		// GroupMembers groupMembers = new GroupMembers();
-		// groupMembers.setUser_id(user.getId());
-		// groupMembers.setRoom_id(Room.getId());
-		//set user id in group member table
 
-		//save group name in room table
-		Room result = roomRepository.save(Room);
-		model.addAttribute("room", result);
-		return "/user/CreateGroup";
+		Room.setAdmin(user.getId());
+		roomRepository.save(Room);
+
+		// setting first user in group
+		GroupMembers groupMembers = new GroupMembers();
+        groupMembers.setRoom(roomRepository.getRoomByRoomId(Room.getId()));
+        groupMembers.setUser(userRepository.getReferenceById(user.getId()));
+		groupMembers.setGroup(true);
+        groupMemberRepository.save(groupMembers);
+
+		return "redirect:/user/groupchat";
 	}
 
-	@RequestMapping("/creategroup")
-	public String createGroup(Model model, Principal principal) {
-		model.addAttribute("title", "Create Group");
+	@RequestMapping("/addmembers")
+	public String createGroup(Model model, Principal principal,
+		@RequestParam(value = "roomId", required = false, defaultValue = "0") int	roomId,
+		@RequestParam(value = "userId", required = false, defaultValue = "0") int	userId) {
+
+		model.addAttribute("title", "Add Members");
+
 		String username = principal.getName();
 		User user = userRepository.getUserByUserName(username);
 
@@ -149,24 +172,22 @@ public class UserController {
 			}
 		}
 
+		System.out.println("roomId: " + roomId);
+		System.out.println("userId: " + userId);
+		// adding user id in group_members table
+		if(roomId > 0 && userId > 0){
+			GroupMembers groupMembers = new GroupMembers();
+			groupMembers.setRoom(roomRepository.getRoomByRoomId(roomId));
+			groupMembers.setUser(userRepository.getReferenceById(userId));
+			groupMembers.setGroup(true);
+			groupMemberRepository.save(groupMembers);
+		}
+		
 		model.addAttribute("friends", friends);
-
+		model.addAttribute("roomId", roomId);
 		model.addAttribute("user", user);
 		return "/user/CreateGroup";
 	}
-	//save the users in group member tables
-	// @PostMapping("/add_member")
-	// public String addMember(Principal principal,@RequestParam("room_id") int room_id, @RequestParam("user_id") int user_id, Model model) {
-	// 	//get logined user by id
-	// 	User user = userRepository.getUserByUserName(principal.getName());
-		
-
-
-	// 	GroupMembers groupMembers = new GroupMembers();
-	// 	groupMembers.setRoom_id(room_id);
-		
-	// 	return "redirect:/user/creategroup";
-	// }
 
 	@RequestMapping("/notification")
 	public String notification(Model model, Principal principal) {
@@ -218,12 +239,6 @@ public class UserController {
 		allUsers.removeAll(friends);
 
 		model.addAttribute("friends", friends);
-
-		// // fetch user from database using userId
-		// if (userId != 0) {
-		// User sender = userRepository.findById(userId);
-		// model.addAttribute("sender", sender);
-		// }
 
 		model.addAttribute("user", user);
 		model.addAttribute("allUsers", allUsers);

@@ -1,5 +1,6 @@
 package com.chat.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,9 +15,20 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
+	// unique = true for group_name and not null
+	@Column(unique = true, nullable = false)
 	private String group_name;
 
+	// group admin
+	private int admin;
 
+	public int getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(int admin) {
+		this.admin = admin;
+	}
 
 	public int getId() {
 		return id;
@@ -36,7 +48,7 @@ public class Room {
 
 	@Override
 	public String toString() {
-		return "Room [id=" + id + ", group_name=" + group_name + "]";
+		return "Room [id=" + id + ", group_name=" + group_name + ", admin=" + admin +"]";
 	}
 
 	

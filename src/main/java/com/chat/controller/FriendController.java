@@ -64,9 +64,9 @@ public class FriendController {
         
         Room room = roomRepository.getRoomByRoomName(roomName);
         if(room == null){
-            System.out.println("save");
             room = new Room();
             room.setGroup_name(roomName);
+            room.setAdmin(0);
             roomRepository.save(room);
         }
 
