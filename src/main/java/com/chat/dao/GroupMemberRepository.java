@@ -6,7 +6,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.chat.entities.GroupMembers;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface GroupMemberRepository extends JpaRepository<GroupMembers, Integer> {
 
         @Query("select gm.room.id from GroupMembers gm " +
@@ -24,4 +27,6 @@ public interface GroupMemberRepository extends JpaRepository<GroupMembers, Integ
                         "and isGroup = true")
         public List<Integer> getRoomIdFromUserId(int user_id);
 
+        @Query("SELECT gm from GroupMembers gm WHERE gm.room.id = :roomId")
+        public List<GroupMembers> getAllMembersByRoomId(@Param("roomId") int id);
 }

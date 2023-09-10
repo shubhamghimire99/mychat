@@ -16,7 +16,6 @@ socket.onmessage = function (event) {
   var msgArea = document.createElement("div");
   var messageElement = document.createElement("div");
   messageElement.className = "d-flex justify-content-start mb-4";
-
   messageElement.innerHTML =
     '<div class="img_cont_msg">' +
     '<img th:src="${message.imageUrl}" class="rounded-circle user_img_msg">' +

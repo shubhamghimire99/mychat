@@ -37,6 +37,7 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+
         Principal principal = session.getPrincipal();
         System.out.println(principal.getName());
         sessions.put(principal.getName(), session);

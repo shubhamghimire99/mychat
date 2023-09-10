@@ -1,5 +1,6 @@
 package com.chat.controller;
 
+import com.chat.entities.GroupMembers;
 import com.chat.entities.Messages;
 import com.chat.entities.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,6 +13,7 @@ import java.security.Principal;
 
 import javax.swing.GroupLayout.Group;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -87,28 +89,30 @@ public class MessageController {
                 e.printStackTrace();
             }
             return "redirect:/user/chat?userId=" + receiver;
-        }
-
-        if (groupId != 0) {
-            return "redirect:/user/groupchat?roomId=" + groupId;
-        } else {
+        }else{
             String messageJson;
             try {
                 messageJson = objectMapper.writeValueAsString(result);
             } catch (Exception e) {
                 messageJson = "{'error': 'JSON serialization error'}";
             }
+            List<GroupMembers> members = groupMemberRepository.getAllMembersByRoomId(groupId);
+            for(GroupMembers gm: members){
+                System.out.println(gm.getUser().getUname());
+                WebSocketSession session = ChatWebSocketHandler.sessions.get(gm.getUser().getEmail());
+                if(session != null){
 
-            User rec = userRepository.getReferenceById(receiver);
-
-            WebSocketSession session = ChatWebSocketHandler.sessions.get(rec.getEmail());
-            try {
-                session.sendMessage(new TextMessage(messageJson));
-            } catch (IOException e) {
-                e.printStackTrace();
+                    try {
+                        session.sendMessage(new TextMessage(messageJson));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
-            return "redirect:/user/chat?userId=" + receiver;
+            return "redirect:/user/groupchat?roomId=" + groupId;
         }
+
+
 
     }
 
