@@ -14,13 +14,13 @@ import com.chat.controller.ChatWebSocketHandler;
 @Configuration
 @EnableWebSocket
 @EnableWebSocketMessageBroker
-public class WebSocketConfig implements WebSocketConfigurer,WebSocketMessageBrokerConfigurer {
-    //dynamic roomid
+public class WebSocketConfig implements WebSocketConfigurer, WebSocketMessageBrokerConfigurer {
+
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(new ChatWebSocketHandler(), "/chat/{user_id}");
+        registry.addHandler(new ChatWebSocketHandler(), "/chat");
     }
-    
+
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/websocket").withSockJS();
@@ -28,9 +28,8 @@ public class WebSocketConfig implements WebSocketConfigurer,WebSocketMessageBrok
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-        registry.enableSimpleBroker("/topic/");
+        registry.enableSimpleBroker("/topic");
         registry.setApplicationDestinationPrefixes("/app");
     }
-
 
 }

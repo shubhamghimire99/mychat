@@ -61,10 +61,11 @@
                         <div class="card-body msg_card_body" id="chat">
                             <div th:each="message : ${userMessages}" id="messageArea">
                                 <!-- Check if the sender is the user -->
-                                <div th:if="${message.sender == user.email}" class="d-flex justify-content-end mb-4">
+                                <div th:if="${message.sender == user.email && param.userId == 69}" class="d-flex justify-content-end mb-4">
                                     <div class="msg_cotainer_send">
                                         <p th:text="${message.message}"></p>
                                         <span class="msg_time_send" th:text="${message.sender}"></span>
+                                        <h1>KANDO</h1>
                                     </div>
                                     <div class="img_cont_msg">
                                         <img th:src="${user.imageUrl}" class="rounded-circle user_img_msg">
@@ -72,14 +73,15 @@
                                 </div>
 
                                 <!-- If the sender is not the user -->
-                                <div th:unless="${message.sender == user.email}"
+                                <div th:if="${message.senderId == 5050}"
                                     class="d-flex justify-content-start mb-4" id="messageArea">
                                     <div class="img_cont_msg">
                                         <img th:src="${message.imageUrl}" class="rounded-circle user_img_msg">
                                     </div>
                                     <div class="msg_cotainer">
-                                        <p th:text="${message.message}"></p>
+                                        <p th:text="${message.message}"></p>lado
                                         <span class="msg_time" th:text="${message.sender}"></span>
+                                        <h1>LADO</h1>
                                     </div>
                                 </div>
                             </div>
@@ -110,6 +112,9 @@
             
             // sending userId to chat.js
             var userId = [[${userId}]];
+
+            // sending other users id to chat.js
+            var otherUserId = [[${otherUserId}]];
         </script>
 
         <script th:src="@{/JS/chat.js}"></script>

@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 @Entity
 public class Friend {
 
-
     private Integer receiver;
 
     private Integer sender;
@@ -57,6 +56,6 @@ public class Friend {
 
     @Override
     public String toString() {
-    	return "Friend [receiver=" + receiver + ", sender=" + sender + ", status=" + status + ", id=" + id + "]";
+        return "Friend [receiver=" + receiver + ", sender=" + sender + ", status=" + status + ", id=" + id + "]";
     }
 }
